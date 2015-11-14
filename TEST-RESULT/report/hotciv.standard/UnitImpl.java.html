@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="da"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../.resources/report.gif" type="image/gif"/><title>UnitImpl.java</title><link rel="stylesheet" href="../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=2;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../.sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">HotCiv Test</a> &gt; <a href="index.source.html" class="el_package">hotciv.standard</a> &gt; <span class="el_source">UnitImpl.java</span></div><h1>UnitImpl.java</h1><pre class="source lang-java linenums">package hotciv.standard;
+
+import hotciv.framework.GameConstants;
+import hotciv.framework.Player;
+import hotciv.framework.Position;
+import hotciv.framework.Tile;
+import hotciv.framework.Unit;
+
+public class UnitImpl implements Unit {
+	private String type;
+	private Player owner;
+	private Position pos;
+
+<span class="fc" id="L14">	public UnitImpl(String type, Player owner, Position p) {</span>
+<span class="fc" id="L15">		this.type = type;</span>
+<span class="fc" id="L16">		this.owner = owner;</span>
+<span class="fc" id="L17">		this.pos = p;</span>
+<span class="fc" id="L18">	}</span>
+	
+	@Override
+	public Player getOwner() {
+<span class="fc" id="L22">		return owner;</span>
+	}
+
+	@Override
+	public int getMoveCount() {
+		// TODO Auto-generated method stub
+<span class="nc" id="L28">		return 0;</span>
+	}
+
+	@Override
+	public int getDefensiveStrength() {
+		// TODO Auto-generated method stub
+<span class="nc" id="L34">		return 0;</span>
+	}
+
+	@Override
+	public int getAttackingStrength() {
+		// TODO Auto-generated method stub
+<span class="nc" id="L40">		return 0;</span>
+	}
+	
+	public Position getPosition() {
+<span class="fc" id="L44">		return pos;</span>
+	}
+
+	@Override
+	public String getTypeString() {
+<span class="fc bfc" id="L49" title="All 2 branches covered.">		if (type == GameConstants.ARCHER)</span>
+<span class="fc" id="L50">			return GameConstants.ARCHER;</span>
+<span class="fc bfc" id="L51" title="All 2 branches covered.">		else if (type == GameConstants.LEGION)</span>
+<span class="fc" id="L52">			return GameConstants.LEGION;</span>
+<span class="pc bpc" id="L53" title="1 of 2 branches missed.">		else if (type == GameConstants.SETTLER)</span>
+<span class="fc" id="L54">			return GameConstants.SETTLER;</span>
+<span class="nc" id="L55">		return type;</span>
+	}
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.6.201506030918</span></div></body></html>

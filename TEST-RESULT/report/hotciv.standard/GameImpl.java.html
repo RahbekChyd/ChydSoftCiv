@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="da"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../.resources/report.gif" type="image/gif"/><title>GameImpl.java</title><link rel="stylesheet" href="../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=2;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../.sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">HotCiv Test</a> &gt; <a href="index.source.html" class="el_package">hotciv.standard</a> &gt; <span class="el_source">GameImpl.java</span></div><h1>GameImpl.java</h1><pre class="source lang-java linenums">package hotciv.standard;
+
+import java.util.ArrayList;
+
+import hotciv.framework.*;
+
+/** Skeleton implementation of HotCiv.
+
+   This source code is from the book 
+     &quot;Flexible, Reliable Software:
+       Using Patterns and Agile Development&quot;
+     published 2010 by CRC Press.
+   Author: 
+     Henrik B Christensen 
+     Department of Computer Science
+     Aarhus University
+
+   Please visit http://www.baerbak.com/ for further information.
+
+   Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);
+   you may not use this file except in compliance with the License.
+   You may obtain a copy of the License at
+
+       http://www.apache.org/licenses/LICENSE-2.0
+
+   Unless required by applicable law or agreed to in writing, software
+   distributed under the License is distributed on an &quot;AS IS&quot; BASIS,
+   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+   See the License for the specific language governing permissions and
+   limitations under the License.
+
+ */
+
+public class GameImpl implements Game {
+<span class="fc" id="L35">	public Player bluePlayer = Player.BLUE;</span>
+<span class="fc" id="L36">	public Player redPlayer = Player.RED;</span>
+<span class="fc" id="L37">	public Player playerInTurn = Player.RED;</span>
+<span class="fc" id="L38">	public City redCity = new CityImpl(Player.RED);</span>
+<span class="fc" id="L39">	public City blueCity = new CityImpl(Player.BLUE);</span>
+<span class="fc" id="L40">	public Tile ocean = new TileImpl(&quot;Ocean&quot;);</span>
+<span class="fc" id="L41">	public Tile hill = new TileImpl(&quot;Hill&quot;);</span>
+<span class="fc" id="L42">	public Tile mountain = new TileImpl(&quot;Mountain&quot;);</span>
+<span class="fc" id="L43">	public Tile plain = new TileImpl(&quot;Plain&quot;);</span>
+<span class="fc" id="L44">	public ArrayList&lt;Unit&gt; units = new ArrayList();</span>
+<span class="fc" id="L45">	public Unit redArcher = new UnitImpl(&quot;archer&quot;, Player.RED, new Position(2, 0));</span>
+<span class="fc" id="L46">	public Unit blueLegion = new UnitImpl(&quot;legion&quot;, Player.BLUE, new Position(3, 2));</span>
+<span class="fc" id="L47">	public Unit redSettler = new UnitImpl(&quot;settler&quot;, Player.RED, new Position(4, 3));</span>
+<span class="fc" id="L48">	private int currentAge = -4000;</span>
+<span class="fc" id="L49">	private int turnCounter = 0;</span>
+	
+<span class="fc" id="L51">	public GameImpl() {</span>
+<span class="fc" id="L52">		units.add(redArcher);</span>
+<span class="fc" id="L53">		units.add(blueLegion);</span>
+<span class="fc" id="L54">		units.add(redSettler);</span>
+<span class="fc" id="L55">	}</span>
+
+	public Tile getTileAt( Position p ) {
+<span class="pc bpc" id="L58" title="1 of 4 branches missed.">		if (p.getRow() == 1 &amp;&amp; p.getColumn() == 0)</span>
+<span class="fc" id="L59">			return ocean;</span>
+<span class="pc bpc" id="L60" title="1 of 4 branches missed.">		if (p.getRow() == 0 &amp;&amp; p.getColumn() == 1)</span>
+<span class="fc" id="L61">			return hill;</span>
+<span class="pc bpc" id="L62" title="1 of 4 branches missed.">		if (p.getRow() == 2 &amp;&amp; p.getColumn() == 2)</span>
+<span class="fc" id="L63">			return mountain;</span>
+<span class="fc" id="L64">		return plain; </span>
+	}
+	public Unit getUnitAt( Position p ) {
+<span class="fc bfc" id="L67" title="All 2 branches covered.">		for (Unit unit : units) {</span>
+<span class="fc bfc" id="L68" title="All 2 branches covered.">			if (unit.getPosition().equals(p))</span>
+<span class="fc" id="L69">				return unit;</span>
+		}
+<span class="fc" id="L71">		return null; </span>
+	}
+	
+	public City getCityAt( Position p ) { 
+<span class="pc bpc" id="L75" title="1 of 4 branches missed.">		if (p.getRow() == 1 &amp;&amp; p.getColumn() == 1)</span>
+<span class="fc" id="L76">			return redCity;</span>
+<span class="pc bpc" id="L77" title="2 of 4 branches missed.">		if (p.getRow() == 4 &amp;&amp; p.getColumn() == 1)</span>
+<span class="fc" id="L78">			return blueCity;</span>
+<span class="nc" id="L79">		return null; </span>
+	}
+	public Player getPlayerInTurn() { 
+<span class="fc" id="L82">		return playerInTurn;</span>
+		}
+	
+	public Player getWinner() {
+<span class="pc bpc" id="L86" title="1 of 2 branches missed.">		if (getAge() == -3000)</span>
+<span class="fc" id="L87">			return redPlayer;</span>
+<span class="nc" id="L88">		return null; </span>
+		}
+	
+	public int getAge() { 
+<span class="fc" id="L92">		return currentAge;</span>
+		}
+	
+	public boolean moveUnit( Position from, Position to ) {
+<span class="nc" id="L96">		return false;</span>
+	}
+	
+	public void endOfTurn() {
+<span class="fc bfc" id="L100" title="All 2 branches covered.">		if (getPlayerInTurn() == Player.RED)</span>
+<span class="fc" id="L101">			playerInTurn = Player.BLUE;</span>
+		else {
+<span class="fc" id="L103">			playerInTurn = Player.RED;</span>
+		}
+<span class="fc" id="L105">		turnCounter += 1;</span>
+		
+<span class="fc bfc" id="L107" title="All 2 branches covered.">		if (turnCounter == 2) {</span>
+<span class="fc" id="L108">			redCity.updateProduction();</span>
+<span class="fc" id="L109">			blueCity.updateProduction();</span>
+<span class="fc" id="L110">			currentAge += 100;</span>
+<span class="fc" id="L111">			turnCounter = 0;</span>
+		}
+<span class="fc" id="L113">	}</span>
+	
+<span class="nc" id="L115">	public void changeWorkForceFocusInCityAt( Position p, String balance ) {}</span>
+<span class="nc" id="L116">	public void changeProductionInCityAt( Position p, String unitType ) {}</span>
+<span class="nc" id="L117">	public void performUnitActionAt( Position p ) {}</span>
+	
+	public boolean isTileAlreadyTaken( Position p ) {
+<span class="fc bfc" id="L120" title="All 2 branches covered.">		if (getUnitAt(p) != null)</span>
+<span class="fc" id="L121">			return true;</span>
+<span class="fc" id="L122">		return false;</span>
+	}
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.6.201506030918</span></div></body></html>

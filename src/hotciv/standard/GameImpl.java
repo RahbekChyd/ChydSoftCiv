@@ -37,38 +37,34 @@ public class GameImpl implements Game {
 	public Player playerInTurn = Player.RED;
 	public City redCity = new CityImpl(Player.RED);
 	public City blueCity = new CityImpl(Player.BLUE);
-	public Tile ocean = new TileImpl(GameConstants.OCEANS);
-	public Tile hill = new TileImpl(GameConstants.HILLS);
-	public Tile mountain = new TileImpl(GameConstants.MOUNTAINS);
-	public Tile plain = new TileImpl(GameConstants.PLAINS);
-	public ArrayList<Unit> units = new ArrayList();
-	public Unit redArcher = new UnitImpl(GameConstants.ARCHER, Player.RED, new Position(2, 0));
-	public Unit blueLegion = new UnitImpl(GameConstants.LEGION, Player.BLUE, new Position(3, 2));
-	public Unit redSettler = new UnitImpl(GameConstants.SETTLER, Player.RED, new Position(4, 3));
 	private int currentAge = -4000;
 	private int turnCounter = 0;
+	Unit[][] units = new Unit[GameConstants.WORLDSIZE][GameConstants.WORLDSIZE];
+	Tile[][] tiles = new Tile[GameConstants.WORLDSIZE][GameConstants.WORLDSIZE];
 	
 	public GameImpl() {
-		units.add(redArcher);
-		units.add(blueLegion);
-		units.add(redSettler);
+	    for (int i = 0; i<GameConstants.WORLDSIZE; i++){
+	        for (int j = 0; j<GameConstants.WORLDSIZE; j++){
+	          tiles[i][j] = new TileImpl(GameConstants.PLAINS);
+	        }
+	      }
+	    
+	    tiles[1][0] = new TileImpl(GameConstants.OCEANS);
+	    tiles[0][1] = new TileImpl(GameConstants.HILLS);
+	    tiles[2][2] = new TileImpl(GameConstants.MOUNTAINS);
+		
+		units[2][0] = new UnitImpl(GameConstants.ARCHER, Player.RED, new Position(2, 0));
+		units[3][2] = new UnitImpl(GameConstants.LEGION, Player.BLUE, new Position(3, 2));
+		units[4][3] = new UnitImpl(GameConstants.SETTLER, Player.RED, new Position(4, 3));
 	}
 
 	public Tile getTileAt( Position p ) {
-		if (p.getRow() == 1 && p.getColumn() == 0)
-			return ocean;
-		if (p.getRow() == 0 && p.getColumn() == 1)
-			return hill;
-		if (p.getRow() == 2 && p.getColumn() == 2)
-			return mountain;
-		return plain; 
+		return tiles[p.getRow()][p.getColumn()];
 	}
 	
 	public Unit getUnitAt( Position p ) {
-		for (Unit unit : units) {
-			if (unit.getPosition().equals(p))
-				return unit;
-		}
+		if (units[p.getRow()][p.getColumn()] != null)	
+			return units[p.getRow()][p.getColumn()];
 		return null; 
 	}
 	
@@ -95,14 +91,20 @@ public class GameImpl implements Game {
 		}
 	
 	public boolean moveUnit( Position from, Position to ) {
-		if (getUnitAt(to) != null)
-			return false;
-		if (getUnitAt(from) == null)
-			return false;
-		if (getUnitAt(from).getOwner() != playerInTurn) 
-			return false;
-		if (getUnitAt(to) == null && getTileAt(to) != plain)
-			return false;
+		if (getUnitAt(from) == null) {return false;}
+		if (getUnitAt(from).getOwner() != playerInTurn) {return false;}
+		if (getUnitAt(to) == null && tiles[to.getRow()][to.getColumn()].getTypeString() != GameConstants.PLAINS) {return false;}
+		
+		boolean targetTileContainNoUnit = getUnitAt(to) == null;
+		if (!targetTileContainNoUnit){
+			boolean enemyOnTargetTile = getUnitAt(from).getOwner() != (getUnitAt(to).getOwner());
+
+			if (enemyOnTargetTile) {
+				units[to.getRow()][to.getColumn()] = units[from.getRow()][from.getColumn()];
+				units[from.getRow()][from.getColumn()] = null;
+			}
+			else return false;
+		}
 		return true;
 	}
 	

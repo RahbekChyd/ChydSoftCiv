@@ -49,7 +49,6 @@ public class TestAlphaCiv {
     City c = game.getCityAt(new Position(1,1));
     assertThat("There should be a city at (1,1)",
                c, is(notNullValue()));
-
     Player p = c.getOwner();
     assertThat("The city should be owned by RED player",
                p, is(Player.RED));
@@ -165,16 +164,28 @@ public class TestAlphaCiv {
   @Test
   public void onlyOneUnitATile() {
 	  assertThat("Only one unit at a tile", game.getUnitAt(new Position(3, 2)), is(notNullValue()));
-	  assertThat("Only one unit at a tile", game.getUnitAt(new Position (4,4)), is(nullValue()));
+	  assertThat("Only one unit at a tile", game.getUnitAt(new Position(4,4)), is(nullValue()));
   }
   
   @Test
+  public void moveAUnitFromOnePlaceToAnother() {
+	  Unit u = game.getUnitAt(new Position(2, 0));
+	  assertThat("Move a unit to a tile which contain ally", game.moveUnit(new Position(2, 0), new Position(4, 3)), is(false));
+	  assertThat("Move a unit to an empty tile", game.moveUnit(new Position(2, 0), new Position(4, 5)), is(true));
+  }
+
+  @Test
   public void ifRedAttacksRedWins() {
-	  assertThat("If Red attacks blue, red will win", game.moveUnit(new Position(2, 0), new Position(3, 2)), is(true));
+	  Unit u = game.getUnitAt(new Position(2, 0));
+	  game.moveUnit(new Position(2, 0), new Position(3, 2));
+	  assertThat("If red attacks blue, red wins", game.getUnitAt(new Position(3, 2)), is(u));
   }
   
+  @Test
   public void ifBlueAttackBlueWins() {
-	  
+	  Unit u = game.getUnitAt(new Position(3, 2));
+	  game.moveUnit(new Position(3, 2), new Position(2, 0));
+	  assertThat("If blue attacks red, blue wins", game.getUnitAt(new Position(3, 2)), is(u));
   }
   
   public void endRoundAfterTurn() {

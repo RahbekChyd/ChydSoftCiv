@@ -16,7 +16,7 @@ public class UnitImpl implements Unit {
 		this.owner = owner;
 		this.pos = p;
 	}
-	
+
 	@Override
 	public Player getOwner() {
 		return owner;
@@ -39,7 +39,7 @@ public class UnitImpl implements Unit {
 		// TODO Auto-generated method stub
 		return 0;
 	}
-	
+
 	public Position getPosition() {
 		return pos;
 	}

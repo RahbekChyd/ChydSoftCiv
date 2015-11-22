@@ -58,4 +58,8 @@ public interface City {
 	
   public int getAllProduction();
 
+  public void setProduction(String unitType);
+  
+  public void minusProduction(int minus);
+
 }

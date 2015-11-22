@@ -1,12 +1,14 @@
 package hotciv.standard;
 
 import hotciv.framework.City;
+import hotciv.framework.GameConstants;
 import hotciv.framework.Player;
 
 public class CityImpl implements City {
 	private Player p;
 	private int allProduction;
-	
+	private String produc = "";
+
 	public CityImpl(Player p){
 		this.p = p;
 	}
@@ -27,8 +29,7 @@ public class CityImpl implements City {
 
 	@Override
 	public String getProduction() {
-		// TODO Auto-generated method stub
-		return null;
+		return produc;
 	}
 
 	@Override
@@ -36,12 +37,21 @@ public class CityImpl implements City {
 		// TODO Auto-generated method stub
 		return null;
 	}
-	
+
 	public void updateProduction() {
 		allProduction += 6;
 	}
-	
+
 	public int getAllProduction() {
 		return allProduction;
+	}
+	
+	public void setProduction(String prod) {
+		produc = prod; 
+	}
+
+	@Override
+	public void minusProduction(int minus) {
+		allProduction -= minus;
 	}
 }

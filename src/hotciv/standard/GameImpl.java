@@ -41,25 +41,17 @@ public class GameImpl implements Game {
 	Tile[][] tiles = new Tile[GameConstants.WORLDSIZE][GameConstants.WORLDSIZE];
 	City[][] cities = new City[GameConstants.WORLDSIZE][GameConstants.WORLDSIZE];
 	private WinnerStrategy strategy;
+	private AgeStrategy ageStrategy;
+	private ActionStrategy actionStrategy;
+	private MapStrategy mapStrategy;
 	
-	public GameImpl(WinnerStrategy strategy) {
-		for (int i = 0; i<GameConstants.WORLDSIZE; i++){
-			for (int j = 0; j<GameConstants.WORLDSIZE; j++){
-				tiles[i][j] = new TileImpl(GameConstants.PLAINS);
-			}
+	public GameImpl(WinnerStrategy strategy, AgeStrategy ageStrategy, ActionStrategy actionStrategy, MapStrategy mapStrategy) {
 		this.strategy = strategy;
-		}
+		this.ageStrategy = ageStrategy;
+		this.actionStrategy = actionStrategy;
+		this.mapStrategy = mapStrategy;
 		
-		cities[1][1] = new CityImpl(Player.RED);
-		cities[4][1] = new CityImpl(Player.BLUE);
-
-		tiles[1][0] = new TileImpl(GameConstants.OCEANS);
-		tiles[0][1] = new TileImpl(GameConstants.HILLS);
-		tiles[2][2] = new TileImpl(GameConstants.MOUNTAINS);
-
-		units[2][0] = new UnitImpl(GameConstants.ARCHER, Player.RED, new Position(2, 0));
-		units[3][2] = new UnitImpl(GameConstants.LEGION, Player.BLUE, new Position(3, 2));
-		units[4][3] = new UnitImpl(GameConstants.SETTLER, Player.RED, new Position(4, 3));
+		this.mapStrategy.mapLayout(this);
 	}
 
 	public Tile getTileAt( Position p ) {
@@ -133,7 +125,7 @@ public class GameImpl implements Game {
 		if (turnCounter == 2) {
 			cities[1][1].updateProduction();
 			cities[4][1].updateProduction();
-			currentAge += 100;
+			currentAge += ageStrategy.ageCalculator(this);
 			turnCounter = 0;
 		}
 	}
@@ -150,7 +142,28 @@ public class GameImpl implements Game {
 			c.setProduction(unitType);
 	}
 	
-	public void performUnitActionAt( Position p ) {}
+	public void performUnitActionAt( Position p ) {
+		actionStrategy.performUnitActionAt(p, this);
+	}
+	
+	public void buildCity (Position p, Player player) {
+		if (getUnitAt(p) != null)
+			cities[p.getRow()][p.getColumn()] = new CityImpl(getUnitAt(p).getOwner());
+		else
+			cities[p.getRow()][p.getColumn()] = new CityImpl(player);
+	}
+	
+	public void removeUnit (Position p) {
+		units[p.getRow()][p.getColumn()] = null;
+	}
+	
+	public void addUnit (Position p, String type, Player player) {
+		units[p.getRow()][p.getColumn()] = new UnitImpl(type, player, p);
+	}
+	
+	public void addTile (Position p, String type) {
+		tiles[p.getRow()][p.getColumn()] = new TileImpl(type);
+	}
 
 	public void produceUnit(Position p) {
 		City c = null;

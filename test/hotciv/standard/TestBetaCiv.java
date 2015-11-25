@@ -19,7 +19,7 @@ public class TestBetaCiv {
 	
 	@Before
 	public void setUp() {
-		game = new GameImpl(new BetaWinnerStrategy());
+		game = new GameImpl(new BetaWinnerStrategy(), new BetaAgeStrategy(), new AlphaActionStrategy(), new AlphaMapStrategy());
 	}
 	
 	@Test
@@ -41,14 +41,25 @@ public class TestBetaCiv {
 		assertThat("Blue wins if blue have conquered both cities", game.getWinner(), is(Player.BLUE));
 	}
 	
+	@Test
+	public void ageIs1850After80Rounds() {
+		end80Rounds();
+		assertThat("The age is 1850 after 80 rounds", game.getAge(), is(1850));
+	}
+	
+	@Test
+	public void ageTest() {
+		endRoundAfterTurn();
+		assertThat("Chyd", game.getAge(), is(-3900));
+	}
 	
 	public void endRoundAfterTurn() {
 		game.endOfTurn();
 		game.endOfTurn();
 	}
 
-	public void end5Rounds() {
-		for (int i = 0; i < 5; i++)
+	public void end80Rounds() {
+		for (int i = 0; i < 80; i++)
 			endRoundAfterTurn();
 	}
 }

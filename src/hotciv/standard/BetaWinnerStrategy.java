@@ -19,4 +19,5 @@ public class BetaWinnerStrategy implements WinnerStrategy {
 		}
 		return null;			
 	}
+
 }

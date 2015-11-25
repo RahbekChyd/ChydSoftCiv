@@ -12,5 +12,4 @@ public class AlphaWinnerStrategy implements WinnerStrategy {
 			return Player.RED;
 		return null;
 	}
-
 }

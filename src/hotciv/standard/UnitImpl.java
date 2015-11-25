@@ -10,6 +10,7 @@ public class UnitImpl implements Unit {
 	private String type;
 	private Player owner;
 	private Position pos;
+	private boolean bonus = false;
 
 	public UnitImpl(String type, Player owner, Position p) {
 		this.type = type;
@@ -30,13 +31,26 @@ public class UnitImpl implements Unit {
 
 	@Override
 	public int getDefensiveStrength() {
-		// TODO Auto-generated method stub
+		if (type == GameConstants.ARCHER) {
+			if (bonus)
+				return 6;
+			return 3;
+		}
+		if (type == GameConstants.LEGION)
+			return 2;
+		if (type == GameConstants.SETTLER)
+			return 3;
 		return 0;
 	}
 
 	@Override
 	public int getAttackingStrength() {
-		// TODO Auto-generated method stub
+		if (type == GameConstants.ARCHER)
+			return 2;
+		if (type == GameConstants.LEGION)
+			return 4;
+		if (type == GameConstants.SETTLER)
+			return 0;
 		return 0;
 	}
 
@@ -55,4 +69,10 @@ public class UnitImpl implements Unit {
 		return type;
 	}
 
+	@Override
+	public void actionBonus() {
+		if (bonus)
+			bonus = false;
+		else bonus = true;	
+	}
 }

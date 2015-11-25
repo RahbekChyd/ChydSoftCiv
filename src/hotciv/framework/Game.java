@@ -73,6 +73,14 @@ public interface Game {
   public int getAge(); 
   
   public void produceUnit(Position p);
+  
+  public void removeUnit (Position p);
+  
+  public void addTile(Position p, String type);
+
+  public void buildCity(Position p, Player player);
+
+  public void addUnit(Position p, String type, Player player);  
     
   // === Mutator methods ======================================
   
@@ -135,5 +143,5 @@ public interface Game {
    * @param p the position of a unit that must perform its action.
    * Nothing happens in case the unit has no associated action.
    */
-  public void performUnitActionAt( Position p );  
+  public void performUnitActionAt( Position p );
 }

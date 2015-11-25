@@ -40,7 +40,7 @@ public class TestAlphaCiv {
 	/** Fixture for alphaciv testing. */
 	@Before
 	public void setUp() {
-		game = new GameImpl(new AlphaWinnerStrategy());
+		game = new GameImpl(new AlphaWinnerStrategy(), new AlphaAgeStrategy(), new AlphaActionStrategy(), new AlphaMapStrategy());
 	}
 
 	@Test
@@ -117,7 +117,6 @@ public class TestAlphaCiv {
 		assertThat("Cities produce 6 'productions' after a round", rc.getAllProduction(), is(12));
 		assertThat("Cities produce 6 'productions' after a round", bc.getAllProduction(), is(12));
 	}
-
 
 	@Test
 	public void citiesPopulationSizeIsAlways1() {

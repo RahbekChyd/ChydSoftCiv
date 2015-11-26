@@ -74,13 +74,13 @@ public interface Game {
   
   public void produceUnit(Position p);
   
-  public void removeUnit (Position p);
+  void removeUnit (Position p);
   
-  public void addTile(Position p, String type);
+  void addTile(Position p, String type);
 
-  public void buildCity(Position p, Player player);
+  void buildCity(Position p, Player player);
 
-  public void addUnit(Position p, String type, Player player);  
+  void addUnit(Position p, String type, Player player);  
     
   // === Mutator methods ======================================
   

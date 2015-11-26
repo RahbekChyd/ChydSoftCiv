@@ -64,5 +64,20 @@ public class TestDeltaCiv {
 		assertThat("Red settler at 1, 2", game.getUnitAt(new Position(1, 2)).getOwner(), is(Player.RED));
 	}
 	
+	@Test
+	public void oceanAt3_0() {
+		assertThat("Ocean at 3, 0", game.getTileAt(new Position(3, 0)).getTypeString(), is(GameConstants.OCEANS));
+	}
+	
+	@Test
+	public void plainAt4_0() {
+		assertThat("Plain at 4, 0", game.getTileAt(new Position(3, 1)).getTypeString(), is(GameConstants.PLAINS));
+	}
+	
+	@Test
+	public void mountainAt6_0() {
+		assertThat("Plain at 6, 0", game.getTileAt(new Position(3, 3)).getTypeString(), is(GameConstants.MOUNTAINS));
+	}
+	
 	
 }

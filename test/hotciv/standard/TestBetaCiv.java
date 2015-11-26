@@ -53,6 +53,12 @@ public class TestBetaCiv {
 		assertThat("Chyd", game.getAge(), is(-3900));
 	}
 	
+	@Test
+	public void ageIs1950After92Rounds() {
+		end92Rounds();
+		assertThat("The age is 1950 after 82 rounds", game.getAge(), is(1950));
+	}
+	
 	public void endRoundAfterTurn() {
 		game.endOfTurn();
 		game.endOfTurn();
@@ -60,6 +66,11 @@ public class TestBetaCiv {
 
 	public void end80Rounds() {
 		for (int i = 0; i < 80; i++)
+			endRoundAfterTurn();
+	}
+	
+	public void end92Rounds() {
+		for (int i = 0; i < 92; i++)
 			endRoundAfterTurn();
 	}
 }

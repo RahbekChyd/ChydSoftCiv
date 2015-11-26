@@ -25,7 +25,4 @@ public class AlphaMapStrategy implements MapStrategy {
 		game.addUnit(new Position(3, 2), GameConstants.LEGION, Player.BLUE);
 		game.addUnit(new Position(4, 3), GameConstants.SETTLER, Player.RED);
 	}
-
-	@Override
-	public void generateMap(String[] tileLayout, String[] cityLayout, String[] unitLayout) {}
 }

@@ -61,24 +61,23 @@ public class DeltaMapStrategy implements MapStrategy {
 				"oorsooooooooooooo",
 				"oooooooooooooooo",
 				"ooblooooooooooooo",
-				"ooobloooooooooooo",
 				"oooooooooooooooo",
 				"oooooooooooooooo",
-				"ooooorloooooooooo",
 				"oooooooooooooooo",
-				"ooooooorloooooooo",
+				"oooooooooooooooo",
+				"oooooooooooooooo",
+				"ooooooobloooooooo",
 				"oooooooooooooooo",
 				"oooooorsooooooooo",
 				"ooorsoooooooooooo",
-				"oooobsooobsooooooo",
-				"oooobsooobloooorsoo",
+				"ooooooooblooooooo",
+				"oooooooobloooorsoo",
 				"oooooooooooooooo"
 		};
 
 		generateMap(tileLayout, cityLayout, unitLayout);
 	}
 
-	@Override
 	public void generateMap(String[] tileLayout, String[] cityLayout, String[] unitLayout) {
 		for ( int i = 0; i < GameConstants.WORLDSIZE; i++ ) {
 			tileLine = tileLayout[i];
@@ -116,26 +115,26 @@ public class DeltaMapStrategy implements MapStrategy {
 					}             	            		
 				}
 				
-				if ( unitChar == 'b' ) {
+				/*if ( unitChar == 'b' ) {
 					if ( unitLine.charAt(z + 1) == 'a' ) {
 						if (k < extra){
 							game.addUnit(new Position(i, (z-k)), GameConstants.ARCHER, Player.BLUE);
 							k++;
 						}
 					}             	            		
-				}
+				}*/
 				
 				/** 
 				 * This is for red and blue LEGIONS
 				 */
-				if ( unitChar == 'r' ) {
+				/*if ( unitChar == 'r' ) {
 					if ( unitLine.charAt(z + 1) == 'l' ) {
 						if (k < extra){
 							game.addUnit(new Position(i, (z-k)), GameConstants.LEGION, Player.RED);
 							k++;
 						}
 					}             	            		
-				}
+				}*/
 				
 				if ( unitChar == 'b' ) {
 					if ( unitLine.charAt(z + 1) == 'l' ) {
@@ -157,7 +156,7 @@ public class DeltaMapStrategy implements MapStrategy {
 						}
 					}             	            		
 				}
-				
+				/*
 				if ( unitChar == 'b' ) {
 					if ( unitLine.charAt(z + 1) == 's' ) {
 						if (k < extra){
@@ -165,7 +164,7 @@ public class DeltaMapStrategy implements MapStrategy {
 							k++;
 						}
 					}             	            		
-				}
+				}*/
 			}
 		}
 	}

@@ -98,6 +98,7 @@ public class GameImpl implements Game {
 			boolean enemyOnTargetTile = getUnitAt(from).getOwner() != (getUnitAt(to).getOwner());
 			
 			if (enemyOnTargetTile) {
+				strategy.addWinningCount(getUnitAt(from).getOwner(), this);
 				attStrategy.winnerOfTheBattle(this, from, to);
 			}
 			return false;

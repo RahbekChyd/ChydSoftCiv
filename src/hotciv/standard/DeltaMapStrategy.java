@@ -45,7 +45,7 @@ public class DeltaMapStrategy implements MapStrategy {
 				"raooooooraooooraoora",
 				"oorsooooooooooooo",
 				"oooooooooooooooo",
-				"ooblooooooooooooo",
+				"ooblobloblooooooooo",
 				"oooooooooooooooo",
 				"oooooooooooooooo",
 				"oooooooooooooooo",

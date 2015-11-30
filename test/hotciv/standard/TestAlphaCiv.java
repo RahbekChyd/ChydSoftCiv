@@ -173,9 +173,9 @@ public class TestAlphaCiv {
 
 	@Test
 	public void ifRedAttacksRedWins() {
-		Unit u = game.getUnitAt(new Position(2, 0));
 		game.moveUnit(new Position(2, 0), new Position(3, 2));
-		assertThat("If red attacks blue, red wins", game.getUnitAt(new Position(3, 2)), is(u));
+		assertThat("If red attacks blue, red wins", game.getUnitAt(new Position(3, 2)).getOwner(), is(Player.RED));
+		assertThat("If red attacks blue, red win", game.getUnitAt(new Position(3, 2)).getTypeString(), is(GameConstants.ARCHER));
 	}
 
 	@Test

@@ -12,4 +12,9 @@ public class AlphaWinnerStrategy implements WinnerStrategy {
 			return Player.RED;
 		return null;
 	}
+
+	@Override
+	public void addWinningCount(Player p, Game game) {
+		//Only for Epsilon, best solution for now!
+	}
 }

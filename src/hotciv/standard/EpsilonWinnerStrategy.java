@@ -28,7 +28,6 @@ public class EpsilonWinnerStrategy implements WinnerStrategy {
 	public void addWinningCount(Player p, Game game) {
 		int countValue = winningCount.get(p) + 1;
 		winningCount.put(p, countValue);
-	}
-
+		}
 }
 

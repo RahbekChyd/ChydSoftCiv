@@ -20,4 +20,9 @@ public class BetaWinnerStrategy implements WinnerStrategy {
 		return null;			
 	}
 
+	@Override
+	public void addWinningCount(Player p, Game game) {
+		//Only for Epsilon, best solution for now!
+	}
+
 }

@@ -1,28 +1,48 @@
 package hotciv.standard;
 
+import hotciv.framework.City;
 import hotciv.framework.Game;
 import hotciv.framework.GameConstants;
 import hotciv.framework.MapStrategy;
 import hotciv.framework.Player;
 import hotciv.framework.Position;
+import hotciv.framework.Tile;
+import hotciv.framework.Unit;
 
 public class AlphaMapStrategy implements MapStrategy {
-	
-	public void mapLayout(Game game) {
+
+	@Override
+	public Tile[][] tilesMap() {
+		Tile[][] tiles = new Tile[GameConstants.WORLDSIZE][GameConstants.WORLDSIZE];
 		for (int i = 0; i<GameConstants.WORLDSIZE; i++){
 			for (int j = 0; j<GameConstants.WORLDSIZE; j++){
-				game.addTile(new Position(i, j), GameConstants.PLAINS);
+				tiles[i][j] = new TileImpl(GameConstants.PLAINS);
 			}
 		}
-		game.buildCity(new Position(1, 1), Player.RED);
-		game.buildCity(new Position(4, 1), Player.BLUE);
+	
+		tiles[1][0] = new TileImpl(GameConstants.OCEANS);
+		tiles[0][1] = new TileImpl(GameConstants.HILLS);
+		tiles[2][2] = new TileImpl(GameConstants.MOUNTAINS);
 		
-		game.addTile(new Position(1, 0), GameConstants.OCEANS);
-		game.addTile(new Position(0, 1), GameConstants.HILLS);
-		game.addTile(new Position(2, 2), GameConstants.MOUNTAINS);
+		return tiles;
+	}
 
-		game.addUnit(new Position(2, 0), GameConstants.ARCHER, Player.RED);
-		game.addUnit(new Position(3, 2), GameConstants.LEGION, Player.BLUE);
-		game.addUnit(new Position(4, 3), GameConstants.SETTLER, Player.RED);
+	@Override
+	public Unit[][] unitsMap() {
+		Unit[][] units = new Unit[GameConstants.WORLDSIZE][GameConstants.WORLDSIZE];
+		units[2][0] = new UnitImpl(GameConstants.ARCHER, Player.RED, new Position(2, 0));
+		units[3][2] = new UnitImpl(GameConstants.LEGION, Player.BLUE, new Position(3, 2));
+		units[4][3] = new UnitImpl(GameConstants.SETTLER, Player.RED, new Position(4, 3));
+		
+		return units;
+	}
+
+	@Override
+	public City[][] cityMap() {
+		City[][] cities = new City[GameConstants.WORLDSIZE][GameConstants.WORLDSIZE];
+		cities[1][1] = new CityImpl(Player.RED);
+		cities[4][1] = new CityImpl(Player.BLUE);
+		
+		return cities;
 	}
 }

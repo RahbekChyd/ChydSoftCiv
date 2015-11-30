@@ -1,48 +1,58 @@
 <?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="da"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../.resources/report.gif" type="image/gif"/><title>CityImpl.java</title><link rel="stylesheet" href="../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=2;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../.sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">HotCiv Test</a> &gt; <a href="index.source.html" class="el_package">hotciv.standard</a> &gt; <span class="el_source">CityImpl.java</span></div><h1>CityImpl.java</h1><pre class="source lang-java linenums">package hotciv.standard;
 
 import hotciv.framework.City;
+import hotciv.framework.GameConstants;
 import hotciv.framework.Player;
 
 public class CityImpl implements City {
 	private Player p;
 	private int allProduction;
-	
-<span class="fc" id="L10">	public CityImpl(Player p){</span>
-<span class="fc" id="L11">		this.p = p;</span>
-<span class="fc" id="L12">	}</span>
+<span class="fc" id="L10">	private String produc = &quot;&quot;;</span>
+
+<span class="fc" id="L12">	public CityImpl(Player p){</span>
+<span class="fc" id="L13">		this.p = p;</span>
+<span class="fc" id="L14">	}</span>
 
 	@Override
 	public Player getOwner() {
-<span class="fc bfc" id="L16" title="All 2 branches covered.">		if (p == p.RED)</span>
-<span class="fc" id="L17">			return Player.RED;</span>
-<span class="pc bpc" id="L18" title="1 of 2 branches missed.">		if (p == p.BLUE)</span>
-<span class="fc" id="L19">			return Player.BLUE;</span>
-<span class="nc" id="L20">		return null;</span>
+<span class="fc bfc" id="L18" title="All 2 branches covered.">		if (p == p.RED)</span>
+<span class="fc" id="L19">			return Player.RED;</span>
+<span class="pc bpc" id="L20" title="1 of 2 branches missed.">		if (p == p.BLUE)</span>
+<span class="fc" id="L21">			return Player.BLUE;</span>
+<span class="nc" id="L22">		return null;</span>
 	}
 
 	@Override
 	public int getSize() {
-<span class="fc" id="L25">		return 1;</span>
+<span class="fc" id="L27">		return 1;</span>
 	}
 
 	@Override
 	public String getProduction() {
-		// TODO Auto-generated method stub
-<span class="nc" id="L31">		return null;</span>
+<span class="fc" id="L32">		return produc;</span>
 	}
 
 	@Override
 	public String getWorkforceFocus() {
 		// TODO Auto-generated method stub
-<span class="nc" id="L37">		return null;</span>
+<span class="nc" id="L38">		return null;</span>
 	}
-	
+
 	public void updateProduction() {
-<span class="fc" id="L41">		allProduction += 6;</span>
-<span class="fc" id="L42">	}</span>
-	
+<span class="fc" id="L42">		allProduction += 6;</span>
+<span class="fc" id="L43">	}</span>
+
 	public int getAllProduction() {
-<span class="fc" id="L45">		return allProduction;</span>
+<span class="fc" id="L46">		return allProduction;</span>
 	}
+	
+	public void setProduction(String prod) {
+<span class="fc" id="L50">		produc = prod; </span>
+<span class="fc" id="L51">	}</span>
+
+	@Override
+	public void minusProduction(int minus) {
+<span class="fc" id="L55">		allProduction -= minus;</span>
+<span class="fc" id="L56">	}</span>
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.6.201506030918</span></div></body></html>

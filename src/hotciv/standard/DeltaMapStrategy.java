@@ -14,9 +14,9 @@ public class DeltaMapStrategy implements MapStrategy {
 	String tileLine;
 	String cityLine;
 	String unitLine;
-	
-	public void mapLayout(Game game) {
-		
+
+	@Override
+	public Tile[][] tilesMap() {
 		String[] tileLayout = new String[] {
 				"oooppMoooooooooo",
 				"oophhppppfffppoo",
@@ -35,26 +35,12 @@ public class DeltaMapStrategy implements MapStrategy {
 				"ooppphhppooooooo",
 				"ooooopppppppppoo"
 		};
+		return generateTiles(tileLayout);
+	}
 
-		String[] cityLayout = new String[] {
-				"oooooooooooooooo",
-				"oooooooooooooooo",
-				"oooooooooooooooo",
-				"oooooooooooooooo",
-				"oooooboooooooooo",
-				"oooooooooooooooo",
-				"oooooooooooooooo",
-				"oooooooooooooooo",
-				"oooooooooooorooo",
-				"oooooooooooooooo",
-				"oooooooooooooooo",
-				"oooooooooooooooo",
-				"oooooooooooooooo",
-				"oooooooooooooooo",
-				"oooooooooooooooo",
-				"oooooooooooooooo"
-		};
 
+	@Override
+	public Unit[][] unitsMap() {
 		String[] unitLayout = new String[] {
 				"raooooooraooooraoora",
 				"oorsooooooooooooo",
@@ -73,9 +59,30 @@ public class DeltaMapStrategy implements MapStrategy {
 				"oooooooobloooorsoo",
 				"oooooooooooooooo"
 		};
-		generateTiles(tileLayout);
-		generateUnit(unitLayout);
-		generateCity(cityLayout);
+		return generateUnits(unitLayout);
+	}
+
+	@Override
+	public City[][] cityMap() {
+		String[] cityLayout = new String[] {
+				"oooooooooooooooo",
+				"oooooooooooooooo",
+				"oooooooooooooooo",
+				"oooooooooooooooo",
+				"oooooboooooooooo",
+				"oooooooooooooooo",
+				"oooooooooooooooo",
+				"oooooooooooooooo",
+				"oooooooooooorooo",
+				"oooooooooooooooo",
+				"oooooooooooooooo",
+				"oooooooooooooooo",
+				"oooooooooooooooo",
+				"oooooooooooooooo",
+				"oooooooooooooooo",
+				"oooooooooooooooo"
+		};
+		return generateCities(cityLayout);
 	}
 
 	public Tile[][] generateTiles(String[] tileLayout) {
@@ -96,31 +103,27 @@ public class DeltaMapStrategy implements MapStrategy {
 		return tiles;
 	}
 
-	public City[][] generateCity(String[] cityLayout) {
+	public City[][] generateCities(String[] cityLayout) {
 		City[][] cities = new City[GameConstants.WORLDSIZE][GameConstants.WORLDSIZE];
 		for ( int i = 0; i < GameConstants.WORLDSIZE; i++ ) {
 			cityLine = cityLayout[i];
 
 			for ( int j = 0; j < GameConstants.WORLDSIZE; j++ ) {
-				char tileChar = tileLine.charAt(j);
+				char cityChar = cityLine.charAt(j);
 
-				if ( tileChar == 'r' ) { cities[i][j] = new CityImpl(Player.RED); }
-				if ( tileChar == 'b' ) { cities[i][j] = new CityImpl(Player.BLUE); }	 
+				if ( cityChar == 'r' ) { cities[i][j] = new CityImpl(Player.RED); }
+				if ( cityChar == 'b' ) { cities[i][j] = new CityImpl(Player.BLUE); }	 
 			}
 		}
 		return cities;
 	}
 
-	public Unit[][] generateUnit(String[] unitLayout) {
+	public Unit[][] generateUnits(String[] unitLayout) {
 		Unit[][] units = new Unit[GameConstants.WORLDSIZE][GameConstants.WORLDSIZE];
 		for ( int i = 0; i < GameConstants.WORLDSIZE; i++ ) {
 			unitLine = unitLayout[i];
 			int k = 0;
 			int extra = (unitLine.length() - GameConstants.WORLDSIZE);
-
-			for ( int j = 0; j < GameConstants.WORLDSIZE; j++ ) {
-				char tileChar = tileLine.charAt(j);
-			}
 
 			for ( int z = 0; z < unitLine.length(); z++){    
 				char unitChar = unitLine.charAt(z);

@@ -44,14 +44,18 @@ public class GameImpl implements Game {
 	private AgeStrategy ageStrategy;
 	private ActionStrategy actionStrategy;
 	private MapStrategy mapStrategy;
+	private AttackStrategy attStrategy;
 	
-	public GameImpl(WinnerStrategy strategy, AgeStrategy ageStrategy, ActionStrategy actionStrategy, MapStrategy mapStrategy) {
+	public GameImpl(WinnerStrategy strategy, AgeStrategy ageStrategy, ActionStrategy actionStrategy, MapStrategy mapStrategy, AttackStrategy attStrategy) {
 		this.strategy = strategy;
 		this.ageStrategy = ageStrategy;
 		this.actionStrategy = actionStrategy;
 		this.mapStrategy = mapStrategy;
+		this.attStrategy = attStrategy;
 		
-		this.mapStrategy.mapLayout(this);
+		units = mapStrategy.unitsMap();
+		tiles = mapStrategy.tilesMap();
+		cities = mapStrategy.cityMap();
 	}
 
 	public Tile getTileAt( Position p ) {
@@ -94,8 +98,7 @@ public class GameImpl implements Game {
 			boolean enemyOnTargetTile = getUnitAt(from).getOwner() != (getUnitAt(to).getOwner());
 			
 			if (enemyOnTargetTile) {
-				units[to.getRow()][to.getColumn()] = units[from.getRow()][from.getColumn()];
-				units[from.getRow()][from.getColumn()] = null;
+				attStrategy.winnerOfTheBattle(this, from, to);
 			}
 			return false;
 		}

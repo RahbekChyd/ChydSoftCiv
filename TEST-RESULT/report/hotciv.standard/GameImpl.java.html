@@ -35,91 +35,151 @@ public class GameImpl implements Game {
 <span class="fc" id="L35">	public Player bluePlayer = Player.BLUE;</span>
 <span class="fc" id="L36">	public Player redPlayer = Player.RED;</span>
 <span class="fc" id="L37">	public Player playerInTurn = Player.RED;</span>
-<span class="fc" id="L38">	public City redCity = new CityImpl(Player.RED);</span>
-<span class="fc" id="L39">	public City blueCity = new CityImpl(Player.BLUE);</span>
-<span class="fc" id="L40">	public Tile ocean = new TileImpl(&quot;Ocean&quot;);</span>
-<span class="fc" id="L41">	public Tile hill = new TileImpl(&quot;Hill&quot;);</span>
-<span class="fc" id="L42">	public Tile mountain = new TileImpl(&quot;Mountain&quot;);</span>
-<span class="fc" id="L43">	public Tile plain = new TileImpl(&quot;Plain&quot;);</span>
-<span class="fc" id="L44">	public ArrayList&lt;Unit&gt; units = new ArrayList();</span>
-<span class="fc" id="L45">	public Unit redArcher = new UnitImpl(&quot;archer&quot;, Player.RED, new Position(2, 0));</span>
-<span class="fc" id="L46">	public Unit blueLegion = new UnitImpl(&quot;legion&quot;, Player.BLUE, new Position(3, 2));</span>
-<span class="fc" id="L47">	public Unit redSettler = new UnitImpl(&quot;settler&quot;, Player.RED, new Position(4, 3));</span>
-<span class="fc" id="L48">	private int currentAge = -4000;</span>
-<span class="fc" id="L49">	private int turnCounter = 0;</span>
+<span class="fc" id="L38">	private int currentAge = -4000;</span>
+<span class="fc" id="L39">	private int turnCounter = 0;</span>
+<span class="fc" id="L40">	Unit[][] units = new Unit[GameConstants.WORLDSIZE][GameConstants.WORLDSIZE];</span>
+<span class="fc" id="L41">	Tile[][] tiles = new Tile[GameConstants.WORLDSIZE][GameConstants.WORLDSIZE];</span>
+<span class="fc" id="L42">	City[][] cities = new City[GameConstants.WORLDSIZE][GameConstants.WORLDSIZE];</span>
+	private WinnerStrategy strategy;
+	private AgeStrategy ageStrategy;
+	private ActionStrategy actionStrategy;
+	private MapStrategy mapStrategy;
 	
-<span class="fc" id="L51">	public GameImpl() {</span>
-<span class="fc" id="L52">		units.add(redArcher);</span>
-<span class="fc" id="L53">		units.add(blueLegion);</span>
-<span class="fc" id="L54">		units.add(redSettler);</span>
-<span class="fc" id="L55">	}</span>
+<span class="fc" id="L48">	public GameImpl(WinnerStrategy strategy, AgeStrategy ageStrategy, ActionStrategy actionStrategy, MapStrategy mapStrategy) {</span>
+<span class="fc" id="L49">		this.strategy = strategy;</span>
+<span class="fc" id="L50">		this.ageStrategy = ageStrategy;</span>
+<span class="fc" id="L51">		this.actionStrategy = actionStrategy;</span>
+<span class="fc" id="L52">		this.mapStrategy = mapStrategy;</span>
+		
+<span class="fc" id="L54">		units = mapStrategy.unitsMap();</span>
+<span class="fc" id="L55">		tiles = mapStrategy.tilesMap();</span>
+<span class="fc" id="L56">		cities = mapStrategy.cityMap();</span>
+<span class="fc" id="L57">	}</span>
 
 	public Tile getTileAt( Position p ) {
-<span class="pc bpc" id="L58" title="1 of 4 branches missed.">		if (p.getRow() == 1 &amp;&amp; p.getColumn() == 0)</span>
-<span class="fc" id="L59">			return ocean;</span>
-<span class="pc bpc" id="L60" title="1 of 4 branches missed.">		if (p.getRow() == 0 &amp;&amp; p.getColumn() == 1)</span>
-<span class="fc" id="L61">			return hill;</span>
-<span class="pc bpc" id="L62" title="1 of 4 branches missed.">		if (p.getRow() == 2 &amp;&amp; p.getColumn() == 2)</span>
-<span class="fc" id="L63">			return mountain;</span>
-<span class="fc" id="L64">		return plain; </span>
+<span class="fc" id="L60">		return tiles[p.getRow()][p.getColumn()];</span>
 	}
+
 	public Unit getUnitAt( Position p ) {
-<span class="fc bfc" id="L67" title="All 2 branches covered.">		for (Unit unit : units) {</span>
-<span class="fc bfc" id="L68" title="All 2 branches covered.">			if (unit.getPosition().equals(p))</span>
-<span class="fc" id="L69">				return unit;</span>
-		}
-<span class="fc" id="L71">		return null; </span>
+<span class="fc bfc" id="L64" title="All 2 branches covered.">		if (units[p.getRow()][p.getColumn()] != null)	</span>
+<span class="fc" id="L65">			return units[p.getRow()][p.getColumn()];</span>
+<span class="fc" id="L66">		return null; </span>
 	}
-	
+
 	public City getCityAt( Position p ) { 
-<span class="pc bpc" id="L75" title="1 of 4 branches missed.">		if (p.getRow() == 1 &amp;&amp; p.getColumn() == 1)</span>
-<span class="fc" id="L76">			return redCity;</span>
-<span class="pc bpc" id="L77" title="2 of 4 branches missed.">		if (p.getRow() == 4 &amp;&amp; p.getColumn() == 1)</span>
-<span class="fc" id="L78">			return blueCity;</span>
-<span class="nc" id="L79">		return null; </span>
+<span class="fc bfc" id="L70" title="All 2 branches covered.">		if (cities[p.getRow()][p.getColumn()] != null)</span>
+<span class="fc" id="L71">			return cities[p.getRow()][p.getColumn()];</span>
+<span class="fc" id="L72">		return null; </span>
 	}
+
 	public Player getPlayerInTurn() { 
-<span class="fc" id="L82">		return playerInTurn;</span>
-		}
-	
+<span class="fc" id="L76">		return playerInTurn;</span>
+	}
+
 	public Player getWinner() {
-<span class="pc bpc" id="L86" title="1 of 2 branches missed.">		if (getAge() == -3000)</span>
-<span class="fc" id="L87">			return redPlayer;</span>
-<span class="nc" id="L88">		return null; </span>
-		}
-	
+<span class="fc" id="L80">		return strategy.getWinner(this); </span>
+	}
+
 	public int getAge() { 
-<span class="fc" id="L92">		return currentAge;</span>
-		}
-	
+<span class="fc" id="L84">		return currentAge;</span>
+	}
+
 	public boolean moveUnit( Position from, Position to ) {
-<span class="nc" id="L96">		return false;</span>
-	}
-	
-	public void endOfTurn() {
-<span class="fc bfc" id="L100" title="All 2 branches covered.">		if (getPlayerInTurn() == Player.RED)</span>
-<span class="fc" id="L101">			playerInTurn = Player.BLUE;</span>
-		else {
-<span class="fc" id="L103">			playerInTurn = Player.RED;</span>
+<span class="pc bpc" id="L88" title="1 of 2 branches missed.">		if (getUnitAt(from) == null) {return false;}</span>
+<span class="fc bfc" id="L89" title="All 2 branches covered.">		if (getUnitAt(from).getOwner() != playerInTurn) {return false;}</span>
+<span class="pc bpc" id="L90" title="1 of 4 branches missed.">		if (getUnitAt(to) == null &amp;&amp; tiles[to.getRow()][to.getColumn()].getTypeString() != GameConstants.PLAINS) {return false;}</span>
+
+<span class="fc bfc" id="L92" title="All 2 branches covered.">		boolean targetTileContainNoUnit = getUnitAt(to) == null;</span>
+<span class="fc bfc" id="L93" title="All 2 branches covered.">		boolean targetTileContainNoCity = getCityAt(to) == null;</span>
+<span class="fc bfc" id="L94" title="All 2 branches covered.">		if (!targetTileContainNoUnit){</span>
+			
+<span class="fc bfc" id="L96" title="All 2 branches covered.">			boolean enemyOnTargetTile = getUnitAt(from).getOwner() != (getUnitAt(to).getOwner());</span>
+			
+<span class="fc bfc" id="L98" title="All 2 branches covered.">			if (enemyOnTargetTile) {</span>
+<span class="fc" id="L99">				units[to.getRow()][to.getColumn()] = units[from.getRow()][from.getColumn()];</span>
+<span class="fc" id="L100">				units[from.getRow()][from.getColumn()] = null;</span>
+			}
+<span class="fc" id="L102">			return false;</span>
 		}
-<span class="fc" id="L105">		turnCounter += 1;</span>
 		
-<span class="fc bfc" id="L107" title="All 2 branches covered.">		if (turnCounter == 2) {</span>
-<span class="fc" id="L108">			redCity.updateProduction();</span>
-<span class="fc" id="L109">			blueCity.updateProduction();</span>
-<span class="fc" id="L110">			currentAge += 100;</span>
-<span class="fc" id="L111">			turnCounter = 0;</span>
+<span class="fc bfc" id="L105" title="All 2 branches covered.">		if (!targetTileContainNoCity){</span>
+			
+<span class="pc bpc" id="L107" title="1 of 2 branches missed.">			boolean enemyCityOnTargetTile = getUnitAt(from).getOwner() != getCityAt(to).getOwner();</span>
+		
+<span class="pc bpc" id="L109" title="1 of 2 branches missed.">			if (enemyCityOnTargetTile) {</span>
+<span class="fc" id="L110">				City c = new CityImpl(units[from.getRow()][from.getColumn()].getOwner());</span>
+<span class="fc" id="L111">				cities[to.getRow()][to.getColumn()] = c;</span>
+<span class="fc" id="L112">				units[from.getRow()][from.getColumn()] = null;</span>
+			}
+<span class="fc" id="L114">			return false;</span>
 		}
-<span class="fc" id="L113">	}</span>
-	
-<span class="nc" id="L115">	public void changeWorkForceFocusInCityAt( Position p, String balance ) {}</span>
-<span class="nc" id="L116">	public void changeProductionInCityAt( Position p, String unitType ) {}</span>
-<span class="nc" id="L117">	public void performUnitActionAt( Position p ) {}</span>
-	
-	public boolean isTileAlreadyTaken( Position p ) {
-<span class="fc bfc" id="L120" title="All 2 branches covered.">		if (getUnitAt(p) != null)</span>
-<span class="fc" id="L121">			return true;</span>
-<span class="fc" id="L122">		return false;</span>
+<span class="fc" id="L116">		return true;		</span>
 	}
+
+	public void endOfTurn() {
+<span class="fc bfc" id="L120" title="All 2 branches covered.">		if (getPlayerInTurn() == Player.RED)</span>
+<span class="fc" id="L121">			playerInTurn = Player.BLUE;</span>
+		else {
+<span class="fc" id="L123">			playerInTurn = Player.RED;</span>
+		}
+<span class="fc" id="L125">		turnCounter += 1;</span>
+
+<span class="fc bfc" id="L127" title="All 2 branches covered.">		if (turnCounter == 2) {</span>
+<span class="fc" id="L128">			cities[1][1].updateProduction();</span>
+<span class="fc" id="L129">			cities[4][1].updateProduction();</span>
+<span class="fc" id="L130">			currentAge += ageStrategy.ageCalculator(this);</span>
+<span class="fc" id="L131">			turnCounter = 0;</span>
+		}
+<span class="fc" id="L133">	}</span>
+
+<span class="nc" id="L135">	public void changeWorkForceFocusInCityAt( Position p, String balance ) {}</span>
+	
+	public void changeProductionInCityAt( Position p, String unitType ) {
+<span class="fc" id="L138">		City c = getCityAt(p);</span>
+<span class="fc bfc" id="L139" title="All 2 branches covered.">		if (unitType.equals(GameConstants.ARCHER))</span>
+<span class="fc" id="L140">			c.setProduction(unitType);</span>
+<span class="fc bfc" id="L141" title="All 2 branches covered.">		if (unitType.equals(GameConstants.LEGION))</span>
+<span class="fc" id="L142">			c.setProduction(unitType);</span>
+<span class="pc bpc" id="L143" title="1 of 2 branches missed.">		if (unitType.equals(GameConstants.SETTLER))</span>
+<span class="nc" id="L144">			c.setProduction(unitType);</span>
+<span class="fc" id="L145">	}</span>
+	
+	public void performUnitActionAt( Position p ) {
+<span class="fc" id="L148">		actionStrategy.performUnitActionAt(p, this);</span>
+<span class="fc" id="L149">	}</span>
+	
+	public void buildCity (Position p, Player player) {
+<span class="pc bpc" id="L152" title="1 of 2 branches missed.">		if (getUnitAt(p) != null)</span>
+<span class="fc" id="L153">			cities[p.getRow()][p.getColumn()] = new CityImpl(getUnitAt(p).getOwner());</span>
+		else
+<span class="nc" id="L155">			cities[p.getRow()][p.getColumn()] = new CityImpl(player);</span>
+<span class="fc" id="L156">	}</span>
+	
+	public void removeUnit (Position p) {
+<span class="fc" id="L159">		units[p.getRow()][p.getColumn()] = null;</span>
+<span class="fc" id="L160">	}</span>
+	
+	public void addUnit (Position p, String type, Player player) {
+<span class="fc" id="L163">		units[p.getRow()][p.getColumn()] = new UnitImpl(type, player, p);</span>
+<span class="fc" id="L164">	}</span>
+	
+	public void addTile (Position p, String type) {
+<span class="fc" id="L167">		tiles[p.getRow()][p.getColumn()] = new TileImpl(type);</span>
+<span class="fc" id="L168">	}</span>
+
+	public void produceUnit(Position p) {
+<span class="fc" id="L171">		City c = null;</span>
+<span class="pc bpc" id="L172" title="1 of 2 branches missed.">		if (getCityAt(p) != null)</span>
+<span class="fc" id="L173">			c = getCityAt(p);</span>
+<span class="fc bfc" id="L174" title="All 4 branches covered.">			if (c.getAllProduction() &gt;= 10 &amp;&amp; c.getOwner() == Player.RED) {</span>
+<span class="fc" id="L175">				units[p.getRow()][p.getColumn()] = new UnitImpl(c.getProduction(), c.getOwner(), p);</span>
+<span class="fc" id="L176">				c.minusProduction(10);</span>
+			}
+<span class="pc bpc" id="L178" title="1 of 4 branches missed.">			if (c.getAllProduction() &gt;= 15 &amp;&amp; c.getOwner() == Player.BLUE){</span>
+<span class="fc" id="L179">				units[p.getRow()][p.getColumn()] = new UnitImpl(c.getProduction(), c.getOwner(), p);</span>
+<span class="fc" id="L180">				c.minusProduction(15);</span>
+			}
+<span class="fc" id="L182">	}</span>
+
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.6.201506030918</span></div></body></html>

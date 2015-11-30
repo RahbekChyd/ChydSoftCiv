@@ -40,7 +40,7 @@ public class TestAlphaCiv {
 	/** Fixture for alphaciv testing. */
 	@Before
 	public void setUp() {
-		game = new GameImpl(new AlphaWinnerStrategy(), new AlphaAgeStrategy(), new AlphaActionStrategy(), new AlphaMapStrategy());
+		game = new GameImpl(new AlphaWinnerStrategy(), new AlphaAgeStrategy(), new AlphaActionStrategy(), new AlphaMapStrategy(), new AlphaAttackingStrategy());
 	}
 
 	@Test
@@ -205,6 +205,58 @@ public class TestAlphaCiv {
 		endRoundAfterTurn();
 		game.produceUnit(new Position(4, 1));
 		assertThat("Blue city produce legion when production above 15", game.getUnitAt(new Position(4, 1)).getTypeString(), is(GameConstants.LEGION));
+	}
+	
+	@Test
+	public void addRedArcherAt5_5() {
+		assertThat("Not an unit at 5, 5", game.getUnitAt(new Position(5, 5)), is(nullValue()));
+		game.addUnit(new Position(5, 5), GameConstants.ARCHER, Player.RED);
+		assertThat("Red Archer at 5, 5", game.getUnitAt(new Position(5, 5)).getOwner(), is(Player.RED));
+		assertThat("Red Archer at 5, 5", game.getUnitAt(new Position(5, 5)).getTypeString(), is(GameConstants.ARCHER));
+	}
+	
+	@Test
+	public void removeArcherFrom5_5() {
+		game.addUnit(new Position(5, 5), GameConstants.ARCHER, Player.RED);
+		assertThat("Red Archer at 5, 5", game.getUnitAt(new Position(5, 5)).getTypeString(), is(GameConstants.ARCHER));
+		game.removeUnit(new Position(5, 5));
+		assertThat("Removed archer from 5, 5", game.getUnitAt(new Position(5, 5)), is(nullValue()));
+	}
+	
+	@Test
+	public void addMountainAt7_7() {
+		game.addTile(new Position(7, 7), GameConstants.MOUNTAINS);
+		assertThat("A mountain at 7, 7", game.getTileAt(new Position(7, 7)).getTypeString(), is(GameConstants.MOUNTAINS));
+	}
+	
+	@Test
+	public void archerDefensiveStrengthIs3() {
+		assertThat("Archer defensive strength is 3", game.getUnitAt(new Position(2, 0)).getDefensiveStrength(), is(3));
+	}
+	
+	@Test
+	public void archerAttackingStrengthIs2() {
+		assertThat("Archer attacking strength is 2", game.getUnitAt(new Position(2, 0)).getAttackingStrength(), is(2));
+	}
+	
+	@Test
+	public void legionDefensiveStrengthIs3() {
+		assertThat("Legion defensive strength is 2", game.getUnitAt(new Position(3, 2)).getDefensiveStrength(), is(2));
+	}
+	
+	@Test
+	public void legionAttackingStrengthIs2() {
+		assertThat("Legion attacking strength is 4", game.getUnitAt(new Position(3, 2)).getAttackingStrength(), is(4));
+	}
+	
+	@Test
+	public void settlerDefensiveStrengthIs3() {
+		assertThat("Settler defensive strength is 3", game.getUnitAt(new Position(4, 3)).getDefensiveStrength(), is(3));
+	}
+	
+	@Test
+	public void settlerAttackingStrengthIs0() {
+		assertThat("Settler attacking strength is 0", game.getUnitAt(new Position(4, 3)).getAttackingStrength(), is(0));
 	}
 
 	public void endRoundAfterTurn() {

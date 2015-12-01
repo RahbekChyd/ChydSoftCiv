@@ -14,4 +14,9 @@ public class TileImpl implements Tile {
 		return type;
 	}
 
+	@Override
+	public void setTypeString(String t) {
+		type = t;
+	}
+
 }

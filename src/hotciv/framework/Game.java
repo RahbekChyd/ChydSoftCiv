@@ -74,6 +74,8 @@ public interface Game {
   
   public void produceUnit(Position p);
   
+  public int getRoundCount();
+  
   void removeUnit (Position p);
   
   void addTile(Position p, String type);
@@ -81,6 +83,7 @@ public interface Game {
   void buildCity(Position p, Player player);
 
   void addUnit(Position p, String type, Player player);  
+  
     
   // === Mutator methods ======================================
   

@@ -19,7 +19,7 @@ public class TestBetaCiv {
 	
 	@Before
 	public void setUp() {
-		game = new GameImpl(new BetaWinnerStrategy(), new BetaAgeStrategy(), new AlphaActionStrategy(), new AlphaMapStrategy());
+		game = new GameImpl(new BetaWinnerStrategy(), new BetaAgeStrategy(), new AlphaActionStrategy(), new AlphaMapStrategy(), new AlphaAttackingStrategy());
 	}
 	
 	@Test

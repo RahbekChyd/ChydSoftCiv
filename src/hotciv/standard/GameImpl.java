@@ -37,6 +37,7 @@ public class GameImpl implements Game {
 	public Player playerInTurn = Player.RED;
 	private int currentAge = -4000;
 	private int turnCounter = 0;
+	private int roundCounter = 0;
 	Unit[][] units = new Unit[GameConstants.WORLDSIZE][GameConstants.WORLDSIZE];
 	Tile[][] tiles = new Tile[GameConstants.WORLDSIZE][GameConstants.WORLDSIZE];
 	City[][] cities = new City[GameConstants.WORLDSIZE][GameConstants.WORLDSIZE];
@@ -131,7 +132,12 @@ public class GameImpl implements Game {
 			cities[4][1].updateProduction();
 			currentAge += ageStrategy.ageCalculator(this);
 			turnCounter = 0;
+			roundCounter += 1;
 		}
+	}
+	
+	public int getRoundCount() {
+		return roundCounter;
 	}
 
 	public void changeWorkForceFocusInCityAt( Position p, String balance ) {}

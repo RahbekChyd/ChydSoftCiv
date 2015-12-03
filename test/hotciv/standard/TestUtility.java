@@ -122,6 +122,11 @@ class StubTile implements Tile {
   private String type;
   public StubTile(String type, int r, int c) { this.type = type; }
   public String getTypeString() { return type; }
+@Override
+public void setTypeString(String t) {
+	// TODO Auto-generated method stub
+	
+}
 }
 
 class StubUnit implements Unit {
@@ -134,6 +139,16 @@ class StubUnit implements Unit {
   public int getMoveCount() { return 0; }
   public int getDefensiveStrength() { return 0; }
   public int getAttackingStrength() { return 0; }
+@Override
+public Position getPosition() {
+	// TODO Auto-generated method stub
+	return null;
+}
+@Override
+public void actionBonus() {
+	// TODO Auto-generated method stub
+	
+}
 }
 
 
@@ -178,6 +193,26 @@ class GameStubForBattleTesting implements Game {
         public String getWorkforceFocus() {
           return null;
         }
+		@Override
+		public void updateProduction() {
+			// TODO Auto-generated method stub
+			
+		}
+		@Override
+		public int getAllProduction() {
+			// TODO Auto-generated method stub
+			return 0;
+		}
+		@Override
+		public void setProduction(String unitType) {
+			// TODO Auto-generated method stub
+			
+		}
+		@Override
+		public void minusProduction(int minus) {
+			// TODO Auto-generated method stub
+			
+		}
       };
     }
     return null;
@@ -192,5 +227,35 @@ class GameStubForBattleTesting implements Game {
   public int getAge() { return 0; }
   public boolean moveUnit(Position from, Position to) {return false;}
   public void performUnitActionAt( Position p ) {}
+@Override
+public void produceUnit(Position p) {
+	// TODO Auto-generated method stub
+	
+}
+@Override
+public int getRoundCount() {
+	// TODO Auto-generated method stub
+	return 0;
+}
+@Override
+public void removeUnit(Position p) {
+	// TODO Auto-generated method stub
+	
+}
+@Override
+public void addTile(Position p, String type) {
+	// TODO Auto-generated method stub
+	
+}
+@Override
+public void buildCity(Position p, Player player) {
+	// TODO Auto-generated method stub
+	
+}
+@Override
+public void addUnit(Position p, String type, Player player) {
+	// TODO Auto-generated method stub
+	
+}
 
 }

@@ -3,7 +3,6 @@ package hotciv.standard;
 import hotciv.framework.GameConstants;
 import hotciv.framework.Player;
 import hotciv.framework.Position;
-import hotciv.framework.Tile;
 import hotciv.framework.Unit;
 
 public class UnitImpl implements Unit {

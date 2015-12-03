@@ -41,18 +41,18 @@ public class GameImpl implements Game {
 	Unit[][] units = new Unit[GameConstants.WORLDSIZE][GameConstants.WORLDSIZE];
 	Tile[][] tiles = new Tile[GameConstants.WORLDSIZE][GameConstants.WORLDSIZE];
 	City[][] cities = new City[GameConstants.WORLDSIZE][GameConstants.WORLDSIZE];
-	private WinnerStrategy strategy;
+	private WinnerStrategy winnerStrategy;
 	private AgeStrategy ageStrategy;
 	private ActionStrategy actionStrategy;
 	private MapStrategy mapStrategy;
 	private AttackStrategy attStrategy;
 	
-	public GameImpl(WinnerStrategy strategy, AgeStrategy ageStrategy, ActionStrategy actionStrategy, MapStrategy mapStrategy, AttackStrategy attStrategy) {
-		this.strategy = strategy;
-		this.ageStrategy = ageStrategy;
-		this.actionStrategy = actionStrategy;
-		this.mapStrategy = mapStrategy;
-		this.attStrategy = attStrategy;
+	public GameImpl(Factory factory) {
+		winnerStrategy = factory.winnerStrategy();
+		ageStrategy = factory.ageStrategy();
+		actionStrategy = factory.actionStrategy();
+		mapStrategy = factory.mapStrategy();
+		attStrategy = factory.attStrategy();
 		
 		units = mapStrategy.unitsMap();
 		tiles = mapStrategy.tilesMap();
@@ -80,7 +80,7 @@ public class GameImpl implements Game {
 	}
 
 	public Player getWinner() {
-		return strategy.getWinner(this); 
+		return winnerStrategy.getWinner(this); 
 	}
 
 	public int getAge() { 
@@ -99,7 +99,7 @@ public class GameImpl implements Game {
 			boolean enemyOnTargetTile = getUnitAt(from).getOwner() != (getUnitAt(to).getOwner());
 			
 			if (enemyOnTargetTile) {
-				strategy.addWinningCount(getUnitAt(from).getOwner(), this);
+				winnerStrategy.addWinningCount(getUnitAt(from).getOwner(), this);
 				attStrategy.winnerOfTheBattle(this, from, to);
 			}
 			return false;

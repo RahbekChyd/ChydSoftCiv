@@ -13,7 +13,7 @@ public class TestZetaCiv {
 	
 	@Before
 	public void setUp() {
-		game = new GameImpl(new ZetaWinnerStrategy(), new AlphaAgeStrategy(), new AlphaActionStrategy(), new AlphaMapStrategy(), new AlphaAttackingStrategy());
+		game = new GameImpl(new ZetaFactory());
 	}
 
 	@Test

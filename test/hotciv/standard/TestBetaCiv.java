@@ -2,11 +2,9 @@ package hotciv.standard;
 
 import org.junit.Test;
 
-import hotciv.framework.City;
 import hotciv.framework.Game;
 import hotciv.framework.Player;
 import hotciv.framework.Position;
-import hotciv.framework.Unit;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.*;
@@ -19,7 +17,7 @@ public class TestBetaCiv {
 	
 	@Before
 	public void setUp() {
-		game = new GameImpl(new BetaWinnerStrategy(), new BetaAgeStrategy(), new AlphaActionStrategy(), new AlphaMapStrategy(), new AlphaAttackingStrategy());
+		game = new GameImpl(new BetaFactory());
 	}
 	
 	@Test

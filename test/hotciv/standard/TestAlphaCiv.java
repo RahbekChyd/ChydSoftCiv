@@ -40,7 +40,7 @@ public class TestAlphaCiv {
 	/** Fixture for alphaciv testing. */
 	@Before
 	public void setUp() {
-		game = new GameImpl(new AlphaWinnerStrategy(), new AlphaAgeStrategy(), new AlphaActionStrategy(), new AlphaMapStrategy(), new AlphaAttackingStrategy());
+		game = new GameImpl(new AlphaFactory());
 	}
 
 	@Test
@@ -187,7 +187,6 @@ public class TestAlphaCiv {
 
 	@Test
 	public void redCityProduceArcherWhenEnoughProduction() {
-		City rc = game.getCityAt(new Position (1, 1));
 		game.changeProductionInCityAt(new Position(1, 1), GameConstants.ARCHER);
 		endRoundAfterTurn();
 		endRoundAfterTurn();

@@ -1,0 +1,9 @@
+Testsuite: hotciv.standard.TestEpsilonCiv
+Tests run: 6, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0,008 sec
+
+Testcase: DefenderWinFightAttackerDie took 0,003 sec
+Testcase: blueWinsWhenblueWon3Battles took 0 sec
+Testcase: redWinsWhenRedWon3Battles took 0 sec
+Testcase: redUnitShouldHaveCombinedAttackingStregthOf18 took 0 sec
+Testcase: blueUnitshouldHaveCombinedDefensiveStrengthOf8 took 0 sec
+Testcase: attackerWinFightDefenderDie took 0 sec

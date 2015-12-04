@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="da"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../.resources/report.gif" type="image/gif"/><title>Utility.java</title><link rel="stylesheet" href="../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=2;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../.sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">HotCiv Test</a> &gt; <a href="index.source.html" class="el_package">hotciv.standard</a> &gt; <span class="el_source">Utility.java</span></div><h1>Utility.java</h1><pre class="source lang-java linenums">package hotciv.standard;
+
+import hotciv.framework.*;
+import java.util.*;
+
+/** Collection of utility methods for speeding up 
+ * the implementation effort in the HotCiv Game
+&lt;#if type == &quot;code&quot;&gt;
+
+&lt;#include &quot;/data/author.txt&quot;&gt;
+&lt;/#if&gt;
+*/
+<span class="nc" id="L13">public class Utility {</span>
+
+  /** return an iterator over positions that are in the 8 neighborhood
+   * of a given position. The 8 neighborhood is the (normally 8)
+   * positions adjacent to the center position. The center position
+   * itself is not part of the iterator. PostCondition: The iterator
+   * is always valid and will contain from 3 to 8 positions. It will
+   * only contain positions that are valid on the game world, that is
+   * a neighborhood centered in (0,0) will contain (1,0), (1,1) and
+   * (0,1) but not e.g. (-1,-1). The iterator always return the
+   * positions in a sequence starting at the north west position and
+   * the rest given row-wise.
+   * @param center the position marking the center of the 8 neighborhood.
+   * @return iterator over the valid positions in the center's 8
+   * neighborhood.
+   */
+  public static Iterator&lt;Position&gt; get8NeighborhoodIterator(Position center) {
+<span class="fc" id="L30">    ArrayList&lt;Position&gt; list = new ArrayList&lt;Position&gt;();</span>
+<span class="fc" id="L31">    int row = center.getRow(); int col = center.getColumn();</span>
+    int r,c;
+<span class="fc bfc" id="L33" title="All 2 branches covered.">    for (int dr = -1; dr &lt;= +1; dr++) {</span>
+<span class="fc bfc" id="L34" title="All 2 branches covered.">      for (int dc = -1; dc &lt;= +1; dc++) {</span>
+<span class="fc" id="L35">        r = row+dr; c = col+dc;</span>
+        // avoid positions outside the world
+<span class="fc bfc" id="L37" title="All 4 branches covered.">        if ( r &gt;= 0 &amp;&amp; r &lt; GameConstants.WORLDSIZE &amp;&amp;</span>
+<span class="fc bfc" id="L38" title="All 4 branches covered.">             c &gt;= 0 &amp;&amp; c &lt; GameConstants.WORLDSIZE ) {</span>
+          // avoid center position
+<span class="fc bfc" id="L40" title="All 4 branches covered.">          if ( r != row || c != col ){</span>
+<span class="fc" id="L41">            list.add( new Position(r,c));</span>
+          }
+        }
+      }
+    }
+<span class="fc" id="L46">    return list.iterator();</span>
+  }
+  
+  /** get the terrain factor for the attack and defense strength
+   * according to the GammaCiv specification
+   * @param game the game the factor should be given for
+   * @param position the position that the factor should be calculated
+   * for
+   * @return the terrain factor
+   */
+  public static int getTerrainFactor(Game game, Position position) {
+    // cities overrule underlying terrain
+<span class="fc bfc" id="L58" title="All 2 branches covered.">    if ( game.getCityAt(position) != null ) { return 3; }</span>
+<span class="fc" id="L59">    Tile t = game.getTileAt(position);</span>
+<span class="fc bfc" id="L60" title="All 2 branches covered.">    if ( t.getTypeString() == GameConstants.FOREST ||</span>
+<span class="fc bfc" id="L61" title="All 2 branches covered.">        t.getTypeString() == GameConstants.HILLS ) {</span>
+<span class="fc" id="L62">      return 2;</span>
+    } 
+<span class="fc" id="L64">    return 1;</span>
+  }
+  
+  /** calculate the additional support a unit at position p owned by a 
+   * given player gets from friendly units on the given game.
+   * @param game the game to calculate on
+   * @param position the position of the unit whose support is wanted
+   * @param player the player owning the unit at position 'position'
+   * @return the support for the unit, +1 for each friendly unit in the 8
+   * neighborhood.
+   */
+  public static int getFriendlySupport(Game game, Position position, 
+                                       Player player) {
+<span class="fc" id="L77">    Iterator&lt;Position&gt; neighborhood = get8NeighborhoodIterator(position);</span>
+    Position p; 
+<span class="fc" id="L79">    int support = 0;</span>
+<span class="fc bfc" id="L80" title="All 2 branches covered.">    while ( neighborhood.hasNext() ) {</span>
+<span class="fc" id="L81">      p = neighborhood.next();</span>
+<span class="fc bfc" id="L82" title="All 2 branches covered.">      if ( game.getUnitAt(p) != null &amp;&amp; </span>
+<span class="fc bfc" id="L83" title="All 2 branches covered.">          game.getUnitAt(p).getOwner() == player ) {</span>
+<span class="fc" id="L84">        support++;</span>
+      }
+    }
+<span class="fc" id="L87">    return support;</span>
+  }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.6.201506030918</span></div></body></html>

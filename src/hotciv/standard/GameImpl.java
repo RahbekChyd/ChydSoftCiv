@@ -150,6 +150,8 @@ public class GameImpl implements Game {
 			c.setProduction(unitType);
 		if (unitType.equals(GameConstants.SETTLER))
 			c.setProduction(unitType);
+		if (unitType.equals(ThetaConstants.Chariot))
+			c.setProduction(unitType);
 	}
 	
 	public void performUnitActionAt( Position p ) {
@@ -187,6 +189,9 @@ public class GameImpl implements Game {
 				units[p.getRow()][p.getColumn()] = new UnitImpl(c.getProduction(), c.getOwner(), p);
 				c.minusProduction(15);
 			}
+			if (c.getAllProduction() >= 20)
+				units[p.getRow()][p.getColumn()] = new UnitImpl(c.getProduction(), c.getOwner(), p);
+				c.minusProduction(20);
 	}
 
 }

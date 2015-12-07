@@ -3,6 +3,7 @@ package hotciv.standard;
 import hotciv.framework.GameConstants;
 import hotciv.framework.Player;
 import hotciv.framework.Position;
+import hotciv.framework.ThetaConstants;
 import hotciv.framework.Unit;
 
 public class UnitImpl implements Unit {
@@ -10,6 +11,7 @@ public class UnitImpl implements Unit {
 	private Player owner;
 	private Position pos;
 	private boolean bonus = false;
+	private int moveCount;
 
 	public UnitImpl(String type, Player owner, Position p) {
 		this.type = type;
@@ -24,8 +26,7 @@ public class UnitImpl implements Unit {
 
 	@Override
 	public int getMoveCount() {
-		// TODO Auto-generated method stub
-		return 0;
+		return moveCount;
 	}
 
 	@Override
@@ -39,6 +40,8 @@ public class UnitImpl implements Unit {
 			return 2;
 		if (type == GameConstants.SETTLER)
 			return 3;
+		if (type == ThetaConstants.Chariot)
+			return 1;
 		return 0;
 	}
 
@@ -50,6 +53,8 @@ public class UnitImpl implements Unit {
 			return 4;
 		if (type == GameConstants.SETTLER)
 			return 0;
+		if (type == ThetaConstants.Chariot)
+			return 3;
 		return 0;
 	}
 
@@ -65,6 +70,8 @@ public class UnitImpl implements Unit {
 			return GameConstants.LEGION;
 		else if (type == GameConstants.SETTLER)
 			return GameConstants.SETTLER;
+		else if (type == ThetaConstants.Chariot)
+			return ThetaConstants.Chariot;
 		return type;
 	}
 

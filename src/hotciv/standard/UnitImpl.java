@@ -40,8 +40,11 @@ public class UnitImpl implements Unit {
 			return 2;
 		if (type == GameConstants.SETTLER)
 			return 3;
-		if (type == ThetaConstants.Chariot)
+		if (type == ThetaConstants.Chariot) {
+			if (bonus)
+				return 2;
 			return 1;
+		}
 		return 0;
 	}
 

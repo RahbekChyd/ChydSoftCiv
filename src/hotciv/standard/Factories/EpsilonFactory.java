@@ -1,12 +1,19 @@
-package hotciv.standard;
+package hotciv.standard.Factories;
 
-import hotciv.framework.ActionStrategy;
-import hotciv.framework.AgeStrategy;
-import hotciv.framework.AttackStrategy;
 import hotciv.framework.Dice;
 import hotciv.framework.Factory;
-import hotciv.framework.MapStrategy;
-import hotciv.framework.WinnerStrategy;
+import hotciv.framework.Strategies.ActionStrategy;
+import hotciv.framework.Strategies.AgeStrategy;
+import hotciv.framework.Strategies.AttackStrategy;
+import hotciv.framework.Strategies.MapStrategy;
+import hotciv.framework.Strategies.UnitStrategy;
+import hotciv.framework.Strategies.WinnerStrategy;
+import hotciv.standard.Alpha.AlphaActionStrategy;
+import hotciv.standard.Alpha.AlphaAgeStrategy;
+import hotciv.standard.Alpha.AlphaMapStrategy;
+import hotciv.standard.Alpha.AlphaUnitStrategy;
+import hotciv.standard.Epsilon.EpsilonAttackingStrategy;
+import hotciv.standard.Epsilon.EpsilonWinnerStrategy;
 
 public class EpsilonFactory implements Factory {
 	Dice dice;
@@ -40,6 +47,11 @@ public class EpsilonFactory implements Factory {
 	@Override
 	public AttackStrategy attStrategy() {
 		return attStrat;
+	}
+	
+	@Override
+	public UnitStrategy unitStrategy() {
+		return new AlphaUnitStrategy();
 	}
 
 }

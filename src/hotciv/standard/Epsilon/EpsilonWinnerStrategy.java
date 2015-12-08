@@ -1,11 +1,11 @@
-package hotciv.standard;
+package hotciv.standard.Epsilon;
 
 import java.util.HashMap;
 import java.util.Map;
 
 import hotciv.framework.Game;
 import hotciv.framework.Player;
-import hotciv.framework.WinnerStrategy;
+import hotciv.framework.Strategies.WinnerStrategy;
 
 public class EpsilonWinnerStrategy implements WinnerStrategy {
 	Map<Player, Integer> winningCount;

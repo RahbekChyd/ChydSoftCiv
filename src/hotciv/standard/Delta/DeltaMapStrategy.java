@@ -1,12 +1,15 @@
-package hotciv.standard;
+package hotciv.standard.Delta;
 
 import hotciv.framework.City;
 import hotciv.framework.GameConstants;
-import hotciv.framework.MapStrategy;
 import hotciv.framework.Player;
 import hotciv.framework.Position;
 import hotciv.framework.Tile;
 import hotciv.framework.Unit;
+import hotciv.framework.Strategies.MapStrategy;
+import hotciv.standard.CityImpl;
+import hotciv.standard.TileImpl;
+import hotciv.standard.UnitImpl;
 
 public class DeltaMapStrategy implements MapStrategy {
 

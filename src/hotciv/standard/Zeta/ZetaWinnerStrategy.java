@@ -1,8 +1,10 @@
-package hotciv.standard;
+package hotciv.standard.Zeta;
 
 import hotciv.framework.Game;
 import hotciv.framework.Player;
-import hotciv.framework.WinnerStrategy;
+import hotciv.framework.Strategies.WinnerStrategy;
+import hotciv.standard.Beta.BetaWinnerStrategy;
+import hotciv.standard.Epsilon.EpsilonWinnerStrategy;
 
 public class ZetaWinnerStrategy implements WinnerStrategy {
 	WinnerStrategy ews = new EpsilonWinnerStrategy();

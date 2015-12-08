@@ -7,6 +7,7 @@ import hotciv.framework.Game;
 import hotciv.framework.GameConstants;
 import hotciv.framework.Player;
 import hotciv.framework.Position;
+import hotciv.standard.Factories.ZetaFactory;
 
 public class TestZetaCiv {
 	private Game game;

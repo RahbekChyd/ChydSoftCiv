@@ -1,9 +1,9 @@
-package hotciv.standard;
+package hotciv.standard.Beta;
 
 import hotciv.framework.Game;
 import hotciv.framework.Player;
 import hotciv.framework.Position;
-import hotciv.framework.WinnerStrategy;
+import hotciv.framework.Strategies.WinnerStrategy;
 
 public class BetaWinnerStrategy implements WinnerStrategy {
 

@@ -1,4 +1,7 @@
-package hotciv.framework;
+package hotciv.framework.Strategies;
+
+import hotciv.framework.Game;
+import hotciv.framework.Player;
 
 public interface WinnerStrategy {
 	public Player getWinner(Game game);

@@ -62,4 +62,6 @@ public interface City {
   
   public void minusProduction(int minus);
 
+  public void setWorkForceFocus(String balance);
+
 }

@@ -213,6 +213,11 @@ class GameStubForBattleTesting implements Game {
 			// TODO Auto-generated method stub
 			
 		}
+		@Override
+		public void setWorkForceFocus(String balance) {
+			// TODO Auto-generated method stub
+			
+		}
       };
     }
     return null;

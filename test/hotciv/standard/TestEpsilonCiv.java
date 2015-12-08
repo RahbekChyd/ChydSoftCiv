@@ -11,6 +11,8 @@ import hotciv.framework.Player;
 import hotciv.framework.Position;
 import hotciv.framework.Tile;
 import hotciv.framework.Unit;
+import hotciv.standard.Epsilon.EpsilonAttackingStrategy;
+import hotciv.standard.Factories.EpsilonFactory;
 
 public class TestEpsilonCiv {
 	private Game game;

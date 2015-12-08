@@ -1,9 +1,10 @@
-package hotciv.standard;
+package hotciv.standard.Epsilon;
 
-import hotciv.framework.AttackStrategy;
 import hotciv.framework.Dice;
 import hotciv.framework.Game;
 import hotciv.framework.Position;
+import hotciv.framework.Strategies.AttackStrategy;
+import hotciv.standard.Utility;
 
 public class EpsilonAttackingStrategy implements AttackStrategy {
 	private Dice dice;

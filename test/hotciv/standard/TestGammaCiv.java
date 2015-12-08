@@ -9,6 +9,7 @@ import org.junit.Test;
 import hotciv.framework.Game;
 import hotciv.framework.Player;
 import hotciv.framework.Position;
+import hotciv.standard.Factories.GammaFactory;
 
 public class TestGammaCiv {
 	private Game game;

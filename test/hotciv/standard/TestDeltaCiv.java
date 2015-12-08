@@ -9,6 +9,7 @@ import hotciv.framework.Game;
 import hotciv.framework.GameConstants;
 import hotciv.framework.Player;
 import hotciv.framework.Position;
+import hotciv.standard.Factories.DeltaFactory;
 
 public class TestDeltaCiv {
 	private Game game;

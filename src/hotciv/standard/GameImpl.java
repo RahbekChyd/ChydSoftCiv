@@ -1,8 +1,13 @@
 package hotciv.standard;
 
-import java.util.ArrayList;
 
 import hotciv.framework.*;
+import hotciv.framework.Strategies.ActionStrategy;
+import hotciv.framework.Strategies.AgeStrategy;
+import hotciv.framework.Strategies.AttackStrategy;
+import hotciv.framework.Strategies.MapStrategy;
+import hotciv.framework.Strategies.UnitStrategy;
+import hotciv.framework.Strategies.WinnerStrategy;
 
 /** Skeleton implementation of HotCiv.
 
@@ -46,6 +51,7 @@ public class GameImpl implements Game {
 	private ActionStrategy actionStrategy;
 	private MapStrategy mapStrategy;
 	private AttackStrategy attStrategy;
+	private UnitStrategy unitStrategy;
 	
 	public GameImpl(Factory factory) {
 		winnerStrategy = factory.winnerStrategy();
@@ -53,6 +59,7 @@ public class GameImpl implements Game {
 		actionStrategy = factory.actionStrategy();
 		mapStrategy = factory.mapStrategy();
 		attStrategy = factory.attStrategy();
+		unitStrategy = factory.unitStrategy();
 		
 		units = mapStrategy.unitsMap();
 		tiles = mapStrategy.tilesMap();
@@ -140,7 +147,10 @@ public class GameImpl implements Game {
 		return roundCounter;
 	}
 
-	public void changeWorkForceFocusInCityAt( Position p, String balance ) {}
+	public void changeWorkForceFocusInCityAt( Position p, String balance ) {
+		City c = getCityAt(p);
+		c.setWorkForceFocus(balance);
+	}
 	
 	public void changeProductionInCityAt( Position p, String unitType ) {
 		City c = getCityAt(p);
@@ -178,20 +188,8 @@ public class GameImpl implements Game {
 	}
 
 	public void produceUnit(Position p) {
-		City c = null;
 		if (getCityAt(p) != null)
-			c = getCityAt(p);
-			if (c.getAllProduction() >= 10 && c.getOwner() == Player.RED) {
-				units[p.getRow()][p.getColumn()] = new UnitImpl(c.getProduction(), c.getOwner(), p);
-				c.minusProduction(10);
-			}
-			if (c.getAllProduction() >= 15 && c.getOwner() == Player.BLUE){
-				units[p.getRow()][p.getColumn()] = new UnitImpl(c.getProduction(), c.getOwner(), p);
-				c.minusProduction(15);
-			}
-			if (c.getAllProduction() >= 20)
-				units[p.getRow()][p.getColumn()] = new UnitImpl(c.getProduction(), c.getOwner(), p);
-				c.minusProduction(20);
+			unitStrategy.produceUnit(this, p);
 	}
 
 }

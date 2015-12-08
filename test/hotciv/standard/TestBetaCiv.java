@@ -5,6 +5,7 @@ import org.junit.Test;
 import hotciv.framework.Game;
 import hotciv.framework.Player;
 import hotciv.framework.Position;
+import hotciv.standard.Factories.BetaFactory;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.*;

@@ -1,8 +1,8 @@
-package hotciv.standard;
+package hotciv.standard.Alpha;
 
-import hotciv.framework.AttackStrategy;
 import hotciv.framework.Game;
 import hotciv.framework.Position;
+import hotciv.framework.Strategies.AttackStrategy;
 
 public class AlphaAttackingStrategy implements AttackStrategy {
 

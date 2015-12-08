@@ -1,8 +1,8 @@
-package hotciv.standard;
+package hotciv.standard.Alpha;
 
 import hotciv.framework.Game;
 import hotciv.framework.Player;
-import hotciv.framework.WinnerStrategy;
+import hotciv.framework.Strategies.WinnerStrategy;
 
 public class AlphaWinnerStrategy implements WinnerStrategy {
 

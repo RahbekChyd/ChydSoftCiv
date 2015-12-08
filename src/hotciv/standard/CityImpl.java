@@ -7,6 +7,7 @@ public class CityImpl implements City {
 	private Player p;
 	private int allProduction;
 	private String produc = "";
+	private String workForce = "";
 
 	public CityImpl(Player p){
 		this.p = p;
@@ -14,9 +15,9 @@ public class CityImpl implements City {
 
 	@Override
 	public Player getOwner() {
-		if (p == p.RED)
+		if (p == Player.RED)
 			return Player.RED;
-		if (p == p.BLUE)
+		if (p == Player.BLUE)
 			return Player.BLUE;
 		return null;
 	}
@@ -33,8 +34,7 @@ public class CityImpl implements City {
 
 	@Override
 	public String getWorkforceFocus() {
-		// TODO Auto-generated method stub
-		return null;
+		return workForce;
 	}
 
 	public void updateProduction() {
@@ -52,5 +52,10 @@ public class CityImpl implements City {
 	@Override
 	public void minusProduction(int minus) {
 		allProduction -= minus;
+	}
+
+	@Override
+	public void setWorkForceFocus(String balance) {
+		workForce = balance;
 	}
 }

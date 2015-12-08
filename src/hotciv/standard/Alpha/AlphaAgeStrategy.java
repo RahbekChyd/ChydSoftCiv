@@ -1,7 +1,7 @@
-package hotciv.standard;
+package hotciv.standard.Alpha;
 
-import hotciv.framework.AgeStrategy;
 import hotciv.framework.Game;
+import hotciv.framework.Strategies.AgeStrategy;
 
 public class AlphaAgeStrategy implements AgeStrategy {
 

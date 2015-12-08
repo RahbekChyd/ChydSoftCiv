@@ -1,13 +1,15 @@
-package hotciv.standard;
+package hotciv.standard.Theta;
 
-import hotciv.framework.ActionStrategy;
 import hotciv.framework.Game;
 import hotciv.framework.GameConstants;
 import hotciv.framework.Position;
+import hotciv.framework.ThetaConstants;
+import hotciv.framework.Strategies.ActionStrategy;
 
-public class GammaActionStrategy implements ActionStrategy {
+public class ThetaActionStrategy implements ActionStrategy {
 
-	public void performUnitActionAt( Position p, Game game ) {
+	@Override
+	public void performUnitActionAt(Position p, Game game) {
 		if (game.getUnitAt(p).getTypeString() == GameConstants.SETTLER){
 			game.buildCity(p, game.getUnitAt(p).getOwner());
 			game.removeUnit(p);
@@ -15,5 +17,9 @@ public class GammaActionStrategy implements ActionStrategy {
 		else if (game.getUnitAt(p).getTypeString() == GameConstants.ARCHER){
 			game.getUnitAt(p).actionBonus();
 		}
+		else if (game.getUnitAt(p).getTypeString() == ThetaConstants.Chariot) {
+			game.getUnitAt(p).actionBonus();
+		}
 	}
+
 }

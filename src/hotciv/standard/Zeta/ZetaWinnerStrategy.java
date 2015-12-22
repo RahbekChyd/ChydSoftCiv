@@ -25,5 +25,4 @@ public class ZetaWinnerStrategy implements WinnerStrategy {
 		if (game.getRoundCount() > 20)
 			ews.addWinningCount(p, game);
 	}
-
 }

@@ -21,14 +21,14 @@ public class TestThetaCiv {
 	}
 	
 	@Test
-	public void redCityProduceArcherWhenEnoughProduction() {
+	public void redCityProduceChariotWhenEnoughProduction() {
 		game.changeProductionInCityAt(new Position(1, 1), ThetaConstants.Chariot);
 		endRoundAfterTurn();
 		endRoundAfterTurn();
 		endRoundAfterTurn();
 		endRoundAfterTurn();
 		game.produceUnit(new Position(1, 1));
-		assertThat("Red city produce archer when production above 10", game.getUnitAt(new Position(1, 1)).getTypeString(), is(ThetaConstants.Chariot));
+		assertThat("Red city produce chariot when production above 20", game.getUnitAt(new Position(1, 1)).getTypeString(), is(ThetaConstants.Chariot));
 	}
 	
 	@Test
@@ -36,6 +36,13 @@ public class TestThetaCiv {
 		game.addUnit(new Position(5, 5), ThetaConstants.Chariot, Player.RED);
 		game.performUnitActionAt(new Position(5, 5));
 		assertThat("Chariot perform action doubles defensive strength", game.getUnitAt(new Position(5, 5)).getDefensiveStrength(), is(2));
+	}
+	
+	@Test
+	public void chariotAttackingStrIs3() {
+		game.addUnit(new Position(5, 5), ThetaConstants.Chariot, Player.RED);
+		game.performUnitActionAt(new Position(5, 5));
+		assertThat("Chariot attacking strength is 3", game.getUnitAt(new Position(5, 5)).getAttackingStrength(), is(3));
 	}
 	
 	@Test

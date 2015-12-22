@@ -1,5 +1,5 @@
 Testsuite: hotciv.standard.TestDeltaCiv
-Tests run: 11, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0,008 sec
+Tests run: 11, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0,007 sec
 
 Testcase: redCityAt8_12 took 0,003 sec
 Testcase: redSettlerAt1_2 took 0 sec

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="da"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../.resources/report.gif" type="image/gif"/><title>AlphaUnitStrategy.java</title><link rel="stylesheet" href="../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=2;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../.sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">HotCiv Test</a> &gt; <a href="index.source.html" class="el_package">hotciv.standard.Alpha</a> &gt; <span class="el_source">AlphaUnitStrategy.java</span></div><h1>AlphaUnitStrategy.java</h1><pre class="source lang-java linenums">package hotciv.standard.Alpha;
+
+import hotciv.framework.City;
+import hotciv.framework.Game;
+import hotciv.framework.Player;
+import hotciv.framework.Position;
+import hotciv.framework.Strategies.UnitStrategy;
+
+<span class="fc" id="L9">public class AlphaUnitStrategy implements UnitStrategy {</span>
+
+	@Override
+	public void produceUnit(Game game, Position p) {
+<span class="fc" id="L13">		City c = null;</span>
+<span class="pc bpc" id="L14" title="1 of 2 branches missed.">		if (game.getCityAt(p) != null)</span>
+<span class="fc" id="L15">			c = game.getCityAt(p);</span>
+<span class="fc bfc" id="L16" title="All 4 branches covered.">			if (c.getAllProduction() &gt;= 10 &amp;&amp; c.getOwner() == Player.RED) {</span>
+<span class="fc" id="L17">				game.addUnit(p, c.getProduction(), c.getOwner());</span>
+<span class="fc" id="L18">				c.minusProduction(10);</span>
+			}
+<span class="pc bpc" id="L20" title="1 of 4 branches missed.">			if (c.getAllProduction() &gt;= 15 &amp;&amp; c.getOwner() == Player.BLUE){</span>
+<span class="fc" id="L21">				game.addUnit(p, c.getProduction(), c.getOwner());</span>
+<span class="fc" id="L22">				c.minusProduction(15);</span>
+			}
+<span class="fc" id="L24">	}</span>
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.6.201506030918</span></div></body></html>

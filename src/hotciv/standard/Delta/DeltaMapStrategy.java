@@ -1,6 +1,7 @@
 package hotciv.standard.Delta;
 
 import hotciv.framework.City;
+import hotciv.framework.Game;
 import hotciv.framework.GameConstants;
 import hotciv.framework.Player;
 import hotciv.framework.Position;
@@ -17,31 +18,29 @@ public class DeltaMapStrategy implements MapStrategy {
 	String cityLine;
 	String unitLine;
 
-	@Override
 	public Tile[][] tilesMap() {
 		String[] tileLayout = new String[] {
-				"oooppMoooooooooo",
-				"oophhppppfffppoo",
-				"opppppMpppoooppo",
-				"oppMMMppppoopppp",
-				"opppfppphhppppoo",
-				"opfppfppppphhppo",
-				"ooopppoooooooooo",
-				"opppppoppphppMoo",
-				"opppppopphpppfoo",
-				"pfffppppopffpppp",
-				"ppppppppoooppppp",
-				"oppMMMppppoooooo",
-				"ooppppppffppppoo",
-				"oooopppppppppooo",
-				"ooppphhppooooooo",
-				"ooooopppppppppoo"
+				"...ooM..........",
+				"..ohhoooofffoo..",
+				".oooooMooo...oo.",
+				".ooMMMoooo..oooo",
+				".ooofooohhoooo..",
+				".ofoofooooohhoo.",
+				"...ooo..........",
+				".ooooo.ooohooM..",
+				".ooooo.oohooof..",
+				"offfoooo.offoooo",
+				"oooooooo...ooooo",
+				".ooMMMoooo......",
+				"..ooooooffoooo..",
+				"....ooooooooo...",
+				"..ooohhoo.......",
+				".....ooooooooo.."
 		};
 		return generateTiles(tileLayout);
 	}
 
 
-	@Override
 	public Unit[][] unitsMap() {
 		String[] unitLayout = new String[] {
 				"raooooooraooooraoora",
@@ -64,7 +63,6 @@ public class DeltaMapStrategy implements MapStrategy {
 		return generateUnits(unitLayout);
 	}
 
-	@Override
 	public City[][] cityMap() {
 		String[] cityLayout = new String[] {
 				"oooooooooooooooo",
@@ -95,8 +93,8 @@ public class DeltaMapStrategy implements MapStrategy {
 			for ( int j = 0; j < GameConstants.WORLDSIZE; j++ ) {
 				char tileChar = tileLine.charAt(j);
 
-				if ( tileChar == 'o' ) { tiles[i][j] = new TileImpl(GameConstants.OCEANS); }
-				if ( tileChar == 'p' ) { tiles[i][j] = new TileImpl(GameConstants.PLAINS); }
+				if ( tileChar == '.' ) { tiles[i][j] = new TileImpl(GameConstants.OCEANS); }
+				if ( tileChar == 'o' ) { tiles[i][j] = new TileImpl(GameConstants.PLAINS); }
 				if ( tileChar == 'M' ) { tiles[i][j] = new TileImpl(GameConstants.MOUNTAINS); }
 				if ( tileChar == 'f' ) { tiles[i][j] = new TileImpl(GameConstants.FOREST); }
 				if ( tileChar == 'h' ) { tiles[i][j] = new TileImpl(GameConstants.HILLS); }			 
@@ -142,27 +140,6 @@ public class DeltaMapStrategy implements MapStrategy {
 					}             	            		
 				}
 
-				/*if ( unitChar == 'b' ) {
-							if ( unitLine.charAt(z + 1) == 'a' ) {
-								if (k < extra){
-									game.addUnit(new Position(i, (z-k)), GameConstants.ARCHER, Player.BLUE);
-									k++;
-								}
-							}             	            		
-						}*/
-
-				/** 
-				 * This is for red and blue LEGIONS
-				 */
-				/*if ( unitChar == 'r' ) {
-							if ( unitLine.charAt(z + 1) == 'l' ) {
-								if (k < extra){
-									game.addUnit(new Position(i, (z-k)), GameConstants.LEGION, Player.RED);
-									k++;
-								}
-							}             	            		
-						}*/
-
 				if ( unitChar == 'b' ) {
 					if ( unitLine.charAt(z + 1) == 'l' ) {
 						if (k < extra){
@@ -183,18 +160,10 @@ public class DeltaMapStrategy implements MapStrategy {
 						}
 					}             	            		
 				}
-				/*
-						if ( unitChar == 'b' ) {
-							if ( unitLine.charAt(z + 1) == 's' ) {
-								if (k < extra){
-									game.addUnit(new Position(i, (z-k)), GameConstants.SETTLER, Player.BLUE);
-									k++;
-								}
-							}             	            		
-						}*/
 			}
 		}
 		return units;
 	}
+
 }
 

@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="da"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../.resources/report.gif" type="image/gif"/><title>AlphaMapStrategy.java</title><link rel="stylesheet" href="../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=2;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../.sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">HotCiv Test</a> &gt; <a href="index.source.html" class="el_package">hotciv.standard.Alpha</a> &gt; <span class="el_source">AlphaMapStrategy.java</span></div><h1>AlphaMapStrategy.java</h1><pre class="source lang-java linenums">package hotciv.standard.Alpha;
+
+import hotciv.framework.City;
+import hotciv.framework.GameConstants;
+import hotciv.framework.Player;
+import hotciv.framework.Position;
+import hotciv.framework.Tile;
+import hotciv.framework.Unit;
+import hotciv.framework.Strategies.MapStrategy;
+import hotciv.standard.CityImpl;
+import hotciv.standard.TileImpl;
+import hotciv.standard.UnitImpl;
+
+<span class="fc" id="L14">public class AlphaMapStrategy implements MapStrategy {</span>
+
+	@Override
+	public Tile[][] tilesMap() {
+<span class="fc" id="L18">		Tile[][] tiles = new Tile[GameConstants.WORLDSIZE][GameConstants.WORLDSIZE];</span>
+<span class="fc bfc" id="L19" title="All 2 branches covered.">		for (int i = 0; i&lt;GameConstants.WORLDSIZE; i++){</span>
+<span class="fc bfc" id="L20" title="All 2 branches covered.">			for (int j = 0; j&lt;GameConstants.WORLDSIZE; j++){</span>
+<span class="fc" id="L21">				tiles[i][j] = new TileImpl(GameConstants.PLAINS);</span>
+			}
+		}
+	
+<span class="fc" id="L25">		tiles[1][0] = new TileImpl(GameConstants.OCEANS);</span>
+<span class="fc" id="L26">		tiles[0][1] = new TileImpl(GameConstants.HILLS);</span>
+<span class="fc" id="L27">		tiles[2][2] = new TileImpl(GameConstants.MOUNTAINS);</span>
+		
+<span class="fc" id="L29">		return tiles;</span>
+	}
+
+	@Override
+	public Unit[][] unitsMap() {
+<span class="fc" id="L34">		Unit[][] units = new Unit[GameConstants.WORLDSIZE][GameConstants.WORLDSIZE];</span>
+<span class="fc" id="L35">		units[2][0] = new UnitImpl(GameConstants.ARCHER, Player.RED, new Position(2, 0));</span>
+<span class="fc" id="L36">		units[3][2] = new UnitImpl(GameConstants.LEGION, Player.BLUE, new Position(3, 2));</span>
+<span class="fc" id="L37">		units[4][3] = new UnitImpl(GameConstants.SETTLER, Player.RED, new Position(4, 3));</span>
+		
+<span class="fc" id="L39">		return units;</span>
+	}
+
+	@Override
+	public City[][] cityMap() {
+<span class="fc" id="L44">		City[][] cities = new City[GameConstants.WORLDSIZE][GameConstants.WORLDSIZE];</span>
+<span class="fc" id="L45">		cities[1][1] = new CityImpl(Player.RED);</span>
+<span class="fc" id="L46">		cities[4][1] = new CityImpl(Player.BLUE);</span>
+		
+<span class="fc" id="L48">		return cities;</span>
+	}
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.6.201506030918</span></div></body></html>

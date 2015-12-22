@@ -1,30 +1,30 @@
 Testsuite: hotciv.standard.TestAlphaCiv
-Tests run: 31, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0,057 sec
+Tests run: 31, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0,06 sec
 
-Testcase: redIsTheFirstPlayer took 0,018 sec
+Testcase: redIsTheFirstPlayer took 0,021 sec
 Testcase: isPlainEverywhereElse took 0 sec
 Testcase: onlyOneUnitATile took 0,002 sec
 Testcase: redAfterBlueTurn took 0 sec
-Testcase: moveAUnitFromOnePlaceToAnother took 0 sec
+Testcase: moveAUnitFromOnePlaceToAnother took 0,001 sec
 Testcase: isOceanAt1_0 took 0 sec
 Testcase: legionAttackingStrengthIs2 took 0 sec
 Testcase: settlerAttackingStrengthIs0 took 0 sec
-Testcase: removeArcherFrom5_5 took 0,001 sec
+Testcase: removeArcherFrom5_5 took 0 sec
 Testcase: legionDefensiveStrengthIs3 took 0 sec
 Testcase: blueCityProduceLegionWhenEnoughProduction took 0 sec
 Testcase: ifRedAttacksRedWins took 0 sec
 Testcase: settlerDefensiveStrengthIs3 took 0 sec
 Testcase: redHasASettlerAt4_3 took 0 sec
 Testcase: ifBlueAttackBlueWins took 0 sec
-Testcase: addMountainAt7_7 took 0 sec
+Testcase: addMountainAt7_7 took 0,001 sec
 Testcase: gameStartInYear4000BC took 0 sec
 Testcase: shouldHaveBlueCityAt4_1 took 0 sec
 Testcase: archerAttackingStrengthIs2 took 0 sec
-Testcase: shouldHaveRedCityAt1_1 took 0,001 sec
+Testcase: shouldHaveRedCityAt1_1 took 0 sec
 Testcase: blueAfterRedTurn took 0 sec
 Testcase: archerDefensiveStrengthIs3 took 0 sec
 Testcase: citiesPopulationSizeIsAlways1 took 0 sec
-Testcase: redWinInYear3000BC took 0,001 sec
+Testcase: redWinInYear3000BC took 0 sec
 Testcase: addRedArcherAt5_5 took 0 sec
 Testcase: isHillAt0_1 took 0 sec
 Testcase: redHasInitiallyOneArcherAt2_0 took 0 sec

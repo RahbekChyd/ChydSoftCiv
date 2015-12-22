@@ -1,6 +1,6 @@
 Testsuite: hotciv.standard.TestGammaCiv
 Tests run: 3, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0,003 sec
 
-Testcase: archerActionActivated took 0,001 sec
+Testcase: archerActionActivated took 0,002 sec
 Testcase: redSettlerActionBuildCity took 0 sec
 Testcase: archerActionDeactivated took 0 sec
